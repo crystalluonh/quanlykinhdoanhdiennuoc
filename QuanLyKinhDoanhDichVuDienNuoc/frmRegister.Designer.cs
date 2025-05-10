@@ -84,7 +84,6 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(216, 27);
             this.txtPassword.TabIndex = 4;
-            this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
@@ -107,6 +106,7 @@
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.Size = new System.Drawing.Size(216, 27);
             this.txtConfirmPassword.TabIndex = 6;
+            this.txtConfirmPassword.TextChanged += new System.EventHandler(this.txtConfirmPassword_TextChanged);
             // 
             // label4
             // 

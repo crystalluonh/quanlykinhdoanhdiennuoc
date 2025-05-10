@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -86,22 +87,39 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             }
         }
 
-        
+
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
-            txtPassword.UseSystemPasswordChar = true;
+            Font commonFont = new Font("Segoe UI", 16); // Gọn, đều, hiện đại
+            txtPassword.Height = 28;
+            txtPassword.Font = commonFont;
+            txtUsername.Font = commonFont;
+
+            txtPassword.PasswordChar = '•'; 
         }
 
         private void cbShowPass_CheckedChanged(object sender, EventArgs e)
         {
             bool isChecked = cbShowPass.Checked;
-            txtPassword.UseSystemPasswordChar = !isChecked;
-        }
 
+            if (isChecked)
+            {
+                txtPassword.PasswordChar = '\0'; // Hiện mật khẩu (bỏ ký tự thay thế)
+            }
+            else
+            {
+                txtPassword.PasswordChar = '•'; // Ẩn mật khẩu bằng ký tự gọn
+            }
+        }
         private void btnClear_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

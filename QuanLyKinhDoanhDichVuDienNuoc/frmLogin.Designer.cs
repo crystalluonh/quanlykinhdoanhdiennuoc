@@ -101,7 +101,7 @@
             this.cbShowPass.AutoSize = true;
             this.cbShowPass.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbShowPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(164)))), ((int)(((byte)(165)))), ((int)(((byte)(169)))));
-            this.cbShowPass.Location = new System.Drawing.Point(136, 210);
+            this.cbShowPass.Location = new System.Drawing.Point(135, 218);
             this.cbShowPass.Name = "cbShowPass";
             this.cbShowPass.Size = new System.Drawing.Size(151, 27);
             this.cbShowPass.TabIndex = 19;
@@ -118,7 +118,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(216, 27);
             this.txtPassword.TabIndex = 16;
-            this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // label3
             // 

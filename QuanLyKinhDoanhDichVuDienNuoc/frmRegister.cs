@@ -23,8 +23,16 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            txtPassword.UseSystemPasswordChar = true;
-            txtConfirmPassword.UseSystemPasswordChar = true;
+          
+            Font commonFont = new Font("Segoe UI", 16); // Gọn, đều, hiện đại
+            txtPassword.Height = 28;
+            txtConfirmPassword.Height = 28;
+            txtPassword.Font = commonFont;
+            txtConfirmPassword.Font = commonFont;
+            txtUsername.Font = commonFont;
+
+            txtPassword.PasswordChar = '•';
+            txtConfirmPassword.PasswordChar = '•';
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -93,13 +101,26 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         {
             bool isChecked = cbShowPass.Checked;
 
-            txtPassword.UseSystemPasswordChar = !isChecked;
-            txtConfirmPassword.UseSystemPasswordChar = !isChecked;
+            if (isChecked)
+            {
+                txtPassword.PasswordChar = '\0'; // Hiện mật khẩu (bỏ ký tự thay thế)
+                txtConfirmPassword.PasswordChar = '\0';
+            }
+            else
+            {
+                txtPassword.PasswordChar = '•'; // Ẩn mật khẩu bằng ký tự gọn
+                txtConfirmPassword.PasswordChar = '•';
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtConfirmPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
