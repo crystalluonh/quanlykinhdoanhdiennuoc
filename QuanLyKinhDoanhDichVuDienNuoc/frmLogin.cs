@@ -42,22 +42,11 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 return;
             }
 
-            // Nếu là tài khoản admin cứng
-            if (username == "admin" && password == "123456")
-            {
-                MessageBox.Show("Đăng nhập admin thành công!");
-                frmAdminMain adminForm = new frmAdminMain();
-                adminForm.Show();
-                this.Hide();
-                return;
-            }
-
-            // Nếu không phải admin thì kiểm tra trong database
-            string hashedPassword = maHoaMatKhau.HashPassword(password);
+            string hashedPassword = password;
 
             using (SqlConnection conn = new SqlConnection(DB.connectionString))
             {
-                string query = "SELECT COUNT(*) FROM Users WHERE Username = @user AND Password = @pass";
+                string query = "SELECT UserID, Role FROM Users WHERE Username = @user AND Password = @pass";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@user", username);
                 cmd.Parameters.AddWithValue("@pass", hashedPassword);
@@ -65,13 +54,34 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 try
                 {
                     conn.Open();
-                    int result = (int)cmd.ExecuteScalar();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (result > 0)
+                    if (reader.Read())
                     {
-                        MessageBox.Show("Đăng nhập người dùng thành công!");
-                        userMain userForm = new userMain(username);
-                        userForm.Show();
+                        int userId = Convert.ToInt32(reader["UserID"]);
+                        string role = reader["Role"].ToString().Trim().ToLower();
+
+                        CurrentUser.UserID = userId;
+                        CurrentUser.Username = username;
+
+                        if (role == "admin")
+                        {
+                            MessageBox.Show("Đăng nhập Admin thành công!");
+                            frmAdminMain adminForm = new frmAdminMain();
+                            adminForm.Show();
+                        }
+                        else if (role == "user")
+                        {
+                            MessageBox.Show("Đăng nhập User thành công!");
+                            userMain userForm = new userMain(username); // Có thể bỏ username nếu không cần
+                            userForm.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Tài khoản không có quyền truy cập hợp lệ.");
+                            return;
+                        }
+
                         this.Hide();
                     }
                     else
@@ -86,7 +96,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             }
         }
 
-        
+
+
+
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
