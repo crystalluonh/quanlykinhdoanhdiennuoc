@@ -73,7 +73,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                         else if (role == "user")
                         {
                             MessageBox.Show("Đăng nhập User thành công!");
-                            userMain userForm = new userMain(username); // Có thể bỏ username nếu không cần
+                            userMain userForm = new userMain(username);
                             userForm.Show();
                         }
                         else

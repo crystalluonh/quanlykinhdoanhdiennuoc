@@ -42,9 +42,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         private void bt_sms_Click(object sender, EventArgs e)
         {
             // Thông tin Twilio
-            const string accountSid = "ACffd1b8ce0538760ce2f84bb35d14f5b6";
-            const string authToken = "62c40d58bb699db6cd58cefce1088038";
-            const string twilioPhoneNumber = "+12315155561";
+            const string accountSid = "";
+            const string authToken = "";
+            const string twilioPhoneNumber = "";
 
             var adminPhoneNumber = new PhoneNumber("+84945876583");
             var maHoaDon = "HD123456";
