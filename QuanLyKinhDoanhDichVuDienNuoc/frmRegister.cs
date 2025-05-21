@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -66,20 +67,34 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 return;
             }
 
-            // 2. Kiểm tra mật khẩu xác nhận
+            // 2. Kiểm tra định dạng Username (chữ + số, 4-20 ký tự)
+            if (!Regex.IsMatch(username, @"^[a-zA-Z0-9]{4,20}$"))
+            {
+                MessageBox.Show("Username phải từ 4 đến 20 ký tự, chỉ gồm chữ cái và số.");
+                return;
+            }
+
+            // 3. Kiểm tra định dạng Password (ít nhất 6 ký tự, có chữ hoa, thường và số)
+            if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"))
+            {
+                MessageBox.Show("Password phải từ 6 ký tự trở lên và bao gồm chữ hoa, chữ thường và số.");
+                return;
+            }
+
+            // 4. Kiểm tra mật khẩu xác nhận
             if (password != confirmPassword)
             {
                 MessageBox.Show("Mật khẩu xác nhận không khớp.");
                 return;
             }
 
-            // 3. Ghi vào SQL
-            using (SqlConnection conn = new SqlConnection(DB.connectionString)) // dùng connection từ lớp DB
+            // 5. Ghi vào SQL
+            using (SqlConnection conn = new SqlConnection(DB.connectionString))
             {
-                string query = "INSERT INTO Users (Username, Password) VALUES (@user, @pass)";
+                string query = "INSERT INTO Users (Username, Password, Role) VALUES (@user, @pass, 'User')";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@user", username);
-                cmd.Parameters.AddWithValue("@pass", hashedPassword); // Có thể mã hóa trước
+                cmd.Parameters.AddWithValue("@pass", hashedPassword);
 
                 try
                 {
@@ -92,6 +107,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                     MessageBox.Show("Lỗi khi đăng ký: " + ex.Message);
                 }
             }
+
             frmLogin f2 = new frmLogin();
             f2.Show();
             this.Hide();

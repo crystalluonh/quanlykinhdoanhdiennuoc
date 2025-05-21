@@ -15,6 +15,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         public frmAdminMain()
         {
             InitializeComponent();
+            LoadUserControl(new QLTK());
         }
         private void LoadUserControl(UserControl uc)
         {
@@ -23,25 +24,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             mainPanel.Controls.Add(uc);         // Thêm vào panel
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void button5_Click(object sender, EventArgs e)
         {
@@ -50,21 +33,10 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.Close();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void btnQLTK_Click(object sender, EventArgs e)
         {
             LoadUserControl(new QLTK());
         }
-
-        private void btnQLKH_Click(object sender, EventArgs e)
-        {
-            LoadUserControl(new QLKH());
-        }
-
         private void btnQLCSĐN_Click(object sender, EventArgs e)
         {
             LoadUserControl(new QLCSĐN());
@@ -72,7 +44,18 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
         private void btnHĐ_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new QLHĐ());
+            LoadUserControl(new QLHĐĐ());
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new QLHĐN());
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            LoadUserControl(new QLTTHĐ());
+        }
+
     }
 }

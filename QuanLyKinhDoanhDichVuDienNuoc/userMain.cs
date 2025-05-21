@@ -15,6 +15,8 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
     public partial class userMain : Form
     {
         private string currentUsername;
+        public string currentUser = "";
+
         public userMain(string username)
         {
             InitializeComponent();
@@ -22,11 +24,12 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
             // Hiển thị tên người dùng trên label (ví dụ label2)
             label2.Text = $"Xin chào {currentUsername}!";
+            LoadUserControl(new TTCN());
         }
 
         
 
-        private void LoadUserControl(UserControl uc)
+        public void LoadUserControl(UserControl uc)
         {
             mainPanel.Controls.Clear();         // Xóa nội dung cũ
             uc.Dock = DockStyle.Fill;           // Đổ đầy panel
@@ -57,7 +60,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
         private void button2_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new HĐTĐN());
+            LoadUserControl(new LSTT());
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -67,7 +70,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new TTO());
+            LoadUserControl(new TTHĐ());
 
         }
 
@@ -78,6 +81,11 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         }
 
         private void userMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }

@@ -14,10 +14,27 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 {
     public partial class frmLogin : Form
     {
+        public string currentUser = "";
+        public static class UserSession
+        {
+            public static int CurrentUserID { get; set; }
+            public static string CurrentUsername { get; set; }
+        }
         public frmLogin()
         {
             InitializeComponent();
 
+
+        }
+        private int layIDTuUsername(string username)
+        {
+            using (SqlConnection conn = new SqlConnection(DB.connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT UserID FROM Users WHERE Username = @username", conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                return (int)cmd.ExecuteScalar();
+            }
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -36,6 +53,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
+            CurrentUser.Username = txtUsername.Text.Trim();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -43,22 +61,22 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 return;
             }
 
-            // Nếu là tài khoản admin cứng
+            // Kiểm tra tài khoản admin cứng
             if (username == "admin" && password == "123456")
             {
                 MessageBox.Show("Đăng nhập admin thành công!");
                 frmAdminMain adminForm = new frmAdminMain();
                 adminForm.Show();
                 this.Hide();
-                return;
+                return;  // Kết thúc luôn
             }
 
-            // Nếu không phải admin thì kiểm tra trong database
+            // Mã hóa mật khẩu trước khi kiểm tra trong DB
             string hashedPassword = maHoaMatKhau.HashPassword(password);
 
             using (SqlConnection conn = new SqlConnection(DB.connectionString))
             {
-                string query = "SELECT COUNT(*) FROM Users WHERE Username = @user AND Password = @pass";
+                string query = "SELECT Role FROM Users WHERE Username = @user AND Password = @pass";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@user", username);
                 cmd.Parameters.AddWithValue("@pass", hashedPassword);
@@ -66,14 +84,32 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 try
                 {
                     conn.Open();
-                    int result = (int)cmd.ExecuteScalar();
+                    object roleObj = cmd.ExecuteScalar();
 
-                    if (result > 0)
+                    if (roleObj != null)
                     {
-                        MessageBox.Show("Đăng nhập người dùng thành công!");
-                        userMain userForm = new userMain(username);
-                        userForm.Show();
-                        this.Hide();
+                        string role = roleObj.ToString();
+
+                        if (role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageBox.Show("Đăng nhập Admin thành công!");
+                            frmAdminMain adminForm = new frmAdminMain();
+                            adminForm.Show();
+                            this.Hide();
+                        }
+                        else if (role.Equals("User", StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageBox.Show("Đăng nhập người dùng thành công!");
+                            UserSession.CurrentUsername = username;
+                            UserSession.CurrentUserID = layIDTuUsername(username);
+                            userMain userForm = new userMain(username);
+                            userForm.Show();
+                            this.Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Role không hợp lệ.");
+                        }
                     }
                     else
                     {
@@ -86,6 +122,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 }
             }
         }
+
 
 
 

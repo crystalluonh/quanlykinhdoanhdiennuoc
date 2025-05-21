@@ -28,32 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.cbPhuongThuc = new System.Windows.Forms.ComboBox();
+            this.panelNoiDung = new System.Windows.Forms.Panel();
+            this.btnXacNhan = new System.Windows.Forms.Button();
+            this.lblTieuDe = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // cbPhuongThuc
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "THANH TOÁN ONLINE";
+            this.cbPhuongThuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.cbPhuongThuc.Location = new System.Drawing.Point(389, 60);
+            this.cbPhuongThuc.Name = "cbPhuongThuc";
+            this.cbPhuongThuc.Size = new System.Drawing.Size(239, 33);
+            this.cbPhuongThuc.TabIndex = 1;
+            this.cbPhuongThuc.SelectedIndexChanged += new System.EventHandler(this.cbPhuongThuc_SelectedIndexChanged);
+            // 
+            // panelNoiDung
+            // 
+            this.panelNoiDung.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.panelNoiDung.Location = new System.Drawing.Point(107, 99);
+            this.panelNoiDung.Name = "panelNoiDung";
+            this.panelNoiDung.Size = new System.Drawing.Size(521, 200);
+            this.panelNoiDung.TabIndex = 2;
+            // 
+            // btnXacNhan
+            // 
+            this.btnXacNhan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnXacNhan.Location = new System.Drawing.Point(245, 319);
+            this.btnXacNhan.Name = "btnXacNhan";
+            this.btnXacNhan.Size = new System.Drawing.Size(120, 35);
+            this.btnXacNhan.TabIndex = 3;
+            this.btnXacNhan.Text = "Xác nhận thanh toán";
+            this.btnXacNhan.Click += new System.EventHandler(this.btnXacNhan_Click);
+            // 
+            // lblTieuDe
+            // 
+            this.lblTieuDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblTieuDe.Location = new System.Drawing.Point(107, 64);
+            this.lblTieuDe.Name = "lblTieuDe";
+            this.lblTieuDe.Size = new System.Drawing.Size(276, 23);
+            this.lblTieuDe.TabIndex = 0;
+            this.lblTieuDe.Text = "Chọn phương thức thanh toán:";
             // 
             // TTO
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.lblTieuDe);
+            this.Controls.Add(this.cbPhuongThuc);
+            this.Controls.Add(this.panelNoiDung);
+            this.Controls.Add(this.btnXacNhan);
             this.Name = "TTO";
-            this.Size = new System.Drawing.Size(658, 628);
+            this.Size = new System.Drawing.Size(657, 517);
+            this.Load += new System.EventHandler(this.TTO_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
-
+        private System.Windows.Forms.ComboBox cbPhuongThuc;
+        private System.Windows.Forms.Panel panelNoiDung;
+        private System.Windows.Forms.Button btnXacNhan;
+        private System.Windows.Forms.Label lblTieuDe;
         #endregion
-
-        private System.Windows.Forms.Label label1;
     }
 }

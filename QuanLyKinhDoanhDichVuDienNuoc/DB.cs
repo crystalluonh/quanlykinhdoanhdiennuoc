@@ -8,6 +8,6 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 {
     internal class DB
     {
-        public static string connectionString = "Server=localhost;Database=UserDB;Trusted_Connection=True;";
+        public static string connectionString = "Server=localhost;Database=QuanLyKinhDoanhDichVuDienNuoc;Trusted_Connection=True;";
     }
 }
