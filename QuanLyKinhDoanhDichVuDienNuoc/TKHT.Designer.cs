@@ -37,6 +37,7 @@
             // 
             // chartThongKe
             // 
+            this.chartThongKe.BackColor = System.Drawing.SystemColors.ControlLight;
             chartArea1.Name = "ChartArea1";
             this.chartThongKe.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -55,6 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Controls.Add(this.chartThongKe);
             this.Name = "TKHT";
             this.Size = new System.Drawing.Size(770, 628);

@@ -73,6 +73,7 @@
             // TTO
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Controls.Add(this.lblTieuDe);
             this.Controls.Add(this.cbPhuongThuc);
             this.Controls.Add(this.panelNoiDung);

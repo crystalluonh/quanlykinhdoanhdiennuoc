@@ -28,13 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvAccounts = new System.Windows.Forms.DataGridView();
+            this.colUsername = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LoaiDichVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenKhachHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colWard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblUsername = new System.Windows.Forms.Label();
             this.txtMaHoaDon = new System.Windows.Forms.TextBox();
             this.lblFullName = new System.Windows.Forms.Label();
@@ -52,14 +60,6 @@
             this.txtChiSoNuoc = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dtThoiGian = new System.Windows.Forms.DateTimePicker();
-            this.colUsername = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LoaiDichVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TenKhachHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colWard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccounts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,6 +86,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(300, 22);
             this.txtSearch.TabIndex = 23;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // btnSearch
             // 
@@ -119,6 +120,83 @@
             this.dgvAccounts.TabIndex = 25;
             this.dgvAccounts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAccounts_CellContentClick);
             // 
+            // colUsername
+            // 
+            this.colUsername.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colUsername.DataPropertyName = "MaHoaDon";
+            this.colUsername.HeaderText = "Mã hóa đơn";
+            this.colUsername.MinimumWidth = 6;
+            this.colUsername.Name = "colUsername";
+            this.colUsername.Width = 40;
+            // 
+            // LoaiDichVu
+            // 
+            this.LoaiDichVu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.LoaiDichVu.DataPropertyName = "LoaiDichVu";
+            this.LoaiDichVu.HeaderText = "Loại dịch vụ";
+            this.LoaiDichVu.MinimumWidth = 6;
+            this.LoaiDichVu.Name = "LoaiDichVu";
+            this.LoaiDichVu.Width = 80;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column1.DataPropertyName = "ThoiGian";
+            dataGridViewCellStyle3.Format = "M";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Column1.HeaderText = "Thời gian";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 70;
+            // 
+            // TenKhachHang
+            // 
+            this.TenKhachHang.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.TenKhachHang.DataPropertyName = "TenKhachHang";
+            this.TenKhachHang.HeaderText = "Tên khách hàng";
+            this.TenKhachHang.MinimumWidth = 6;
+            this.TenKhachHang.Name = "TenKhachHang";
+            this.TenKhachHang.Width = 120;
+            // 
+            // colWard
+            // 
+            this.colWard.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colWard.DataPropertyName = "PhuongXa";
+            this.colWard.HeaderText = "Phường/Xã";
+            this.colWard.MinimumWidth = 6;
+            this.colWard.Name = "colWard";
+            this.colWard.Width = 80;
+            // 
+            // colAddress
+            // 
+            this.colAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colAddress.DataPropertyName = "DiaChi";
+            this.colAddress.HeaderText = "Địa chỉ";
+            this.colAddress.MinimumWidth = 6;
+            this.colAddress.Name = "colAddress";
+            this.colAddress.Width = 125;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column2.DataPropertyName = "ChiSoNuoc";
+            this.Column2.HeaderText = "Chỉ số nước";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 40;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Column3.DataPropertyName = "TongTien";
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Red;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Column3.HeaderText = "Tổng tiền";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 90;
+            // 
             // lblUsername
             // 
             this.lblUsername.Location = new System.Drawing.Point(10, 270);
@@ -131,7 +209,7 @@
             // 
             this.txtMaHoaDon.Location = new System.Drawing.Point(137, 267);
             this.txtMaHoaDon.Name = "txtMaHoaDon";
-            this.txtMaHoaDon.Size = new System.Drawing.Size(434, 22);
+            this.txtMaHoaDon.Size = new System.Drawing.Size(517, 22);
             this.txtMaHoaDon.TabIndex = 27;
             // 
             // lblFullName
@@ -146,7 +224,7 @@
             // 
             this.txtTenKH.Location = new System.Drawing.Point(139, 340);
             this.txtTenKH.Name = "txtTenKH";
-            this.txtTenKH.Size = new System.Drawing.Size(432, 22);
+            this.txtTenKH.Size = new System.Drawing.Size(518, 22);
             this.txtTenKH.TabIndex = 29;
             // 
             // lblWard
@@ -195,7 +273,7 @@
             // 
             this.txtAddress.Location = new System.Drawing.Point(385, 381);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(186, 22);
+            this.txtAddress.Size = new System.Drawing.Size(269, 22);
             this.txtAddress.TabIndex = 37;
             // 
             // btnAdd
@@ -242,7 +320,7 @@
             this.cbLoaiDichVu.FormattingEnabled = true;
             this.cbLoaiDichVu.Location = new System.Drawing.Point(139, 305);
             this.cbLoaiDichVu.Name = "cbLoaiDichVu";
-            this.cbLoaiDichVu.Size = new System.Drawing.Size(432, 24);
+            this.cbLoaiDichVu.Size = new System.Drawing.Size(515, 24);
             this.cbLoaiDichVu.TabIndex = 43;
             // 
             // label2
@@ -275,88 +353,13 @@
             this.dtThoiGian.Location = new System.Drawing.Point(385, 418);
             this.dtThoiGian.Name = "dtThoiGian";
             this.dtThoiGian.ShowUpDown = true;
-            this.dtThoiGian.Size = new System.Drawing.Size(186, 22);
+            this.dtThoiGian.Size = new System.Drawing.Size(269, 22);
             this.dtThoiGian.TabIndex = 50;
-            // 
-            // colUsername
-            // 
-            this.colUsername.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colUsername.DataPropertyName = "MaHoaDon";
-            this.colUsername.HeaderText = "Mã hóa đơn";
-            this.colUsername.MinimumWidth = 6;
-            this.colUsername.Name = "colUsername";
-            this.colUsername.Width = 40;
-            // 
-            // LoaiDichVu
-            // 
-            this.LoaiDichVu.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.LoaiDichVu.DataPropertyName = "LoaiDichVu";
-            this.LoaiDichVu.HeaderText = "Loại dịch vụ";
-            this.LoaiDichVu.MinimumWidth = 6;
-            this.LoaiDichVu.Name = "LoaiDichVu";
-            this.LoaiDichVu.Width = 80;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.DataPropertyName = "ThoiGian";
-            dataGridViewCellStyle1.Format = "M";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Column1.HeaderText = "Thời gian";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 70;
-            // 
-            // TenKhachHang
-            // 
-            this.TenKhachHang.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.TenKhachHang.DataPropertyName = "TenKhachHang";
-            this.TenKhachHang.HeaderText = "Tên khách hàng";
-            this.TenKhachHang.MinimumWidth = 6;
-            this.TenKhachHang.Name = "TenKhachHang";
-            this.TenKhachHang.Width = 120;
-            // 
-            // colWard
-            // 
-            this.colWard.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colWard.DataPropertyName = "PhuongXa";
-            this.colWard.HeaderText = "Phường/Xã";
-            this.colWard.MinimumWidth = 6;
-            this.colWard.Name = "colWard";
-            this.colWard.Width = 80;
-            // 
-            // colAddress
-            // 
-            this.colAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.colAddress.DataPropertyName = "DiaChi";
-            this.colAddress.HeaderText = "Địa chỉ";
-            this.colAddress.MinimumWidth = 6;
-            this.colAddress.Name = "colAddress";
-            // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column2.DataPropertyName = "ChiSoNuoc";
-            this.Column2.HeaderText = "Chỉ số nước";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 40;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column3.DataPropertyName = "TongTien";
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Red;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column3.HeaderText = "Tổng tiền";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 90;
             // 
             // QLHĐN
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Controls.Add(this.dtThoiGian);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtChiSoNuoc);

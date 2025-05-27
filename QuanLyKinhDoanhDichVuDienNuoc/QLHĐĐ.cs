@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Windows.Forms;
-
+using ClosedXML.Excel;
+using ExcelDataReader;
+using OfficeOpenXml;
 namespace QuanLyKinhDoanhDichVuDienNuoc
 {
     public partial class QLHĐĐ : UserControl
@@ -10,6 +14,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         public QLHĐĐ()
         {
             InitializeComponent();
+
         }
 
         private void QLHĐĐ_Load(object sender, EventArgs e)
@@ -400,5 +405,133 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 }
             }
         }
+
+        private void btnThemFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        var result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                        {
+                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                        });
+
+                        DataTable dataTable = result.Tables[0];
+
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            string maHoaDon = row["MaHoaDon"].ToString().Trim();
+                            string loaiDichVu = row["LoaiDichVu"].ToString().Trim();
+                            string thoiGianStr = row["ThoiGian"].ToString().Trim();
+                            string tenKH = row["TenKhachHang"].ToString().Trim();
+                            string phuongXa = row["PhuongXa"].ToString().Trim();
+                            string diaChi = row["DiaChi"].ToString().Trim();
+                            if (!int.TryParse(row["ChiSoDien"].ToString().Trim(), out int chiSoDien) || chiSoDien <= 0)
+                                throw new Exception("Chỉ số điện không hợp lệ");
+                            if (!decimal.TryParse(row["TongTien"].ToString().Trim(), out decimal tongTien) || tongTien < 0)
+                                throw new Exception("Tổng tiền không hợp lệ");
+                            // Mã hóa password trước khi lưu
+
+                            using (SqlConnection conn = new SqlConnection(DB.connectionString))
+                            {
+                                string queryInsert = @"
+                                     INSERT INTO HoaDonDien (MaHoaDon, MaDV, ThoiGian, TenKhachHang,
+                                                             PhuongXa, DiaChi, ChiSoDien, TongTien, UserId)
+                                     VALUES (@MaHoaDon, @MaDV, @ThoiGian, @TenKhachHang,
+                                             @PhuongXa, @DiaChi, @ChiSoDien, @TongTien, @UserId)";
+                                using (SqlCommand cmdInsert = new SqlCommand(queryInsert, conn))
+                                {
+                                    cmdInsert.Parameters.AddWithValue("@MaHoaDon", maHoaDon);
+                                    cmdInsert.Parameters.AddWithValue("@LoaiDichVu", loaiDichVu);
+                                    cmdInsert.Parameters.AddWithValue("@ThoiGian", thoiGianStr);
+                                    cmdInsert.Parameters.AddWithValue("@TenKhachHang", tenKH);
+                                    cmdInsert.Parameters.AddWithValue("@PhuongXa", phuongXa);
+                                    cmdInsert.Parameters.AddWithValue("@DiaChi", diaChi);
+                                    cmdInsert.Parameters.AddWithValue("@ChiSoDien", chiSoDien);
+                                    cmdInsert.Parameters.AddWithValue("@TongTien", tongTien);
+                                    cmdInsert.Parameters.AddWithValue("@UserId", DBNull.Value);
+                                    try
+                                    {
+                                        conn.Open();
+                                        cmdInsert.ExecuteNonQuery();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show("Lỗi khi xóa hóa đơn: " + ex.Message);
+                                    }
+                                }
+                            }
+                        }
+
+                        MessageBox.Show("Import Excel thành công!");
+                        LoadAllData(); // Load lại bảng
+                    }
+                }
+            }
+        }
+
+        private void btnXuatFile_Click(object sender, EventArgs e)
+        {
+            if (dgvAccounts.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.");
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+            saveFileDialog.Title = "Lưu file Excel";
+            saveFileDialog.FileName = "HoaDonDien.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (XLWorkbook workbook = new XLWorkbook())
+                    {
+                        DataTable dt = new DataTable();
+
+                        // Tạo cột từ DataGridView
+                        foreach (DataGridViewColumn col in dgvAccounts.Columns)
+                        {
+                            dt.Columns.Add(col.HeaderText);
+                        }
+
+                        // Thêm dữ liệu từ DataGridView vào DataTable
+                        foreach (DataGridViewRow row in dgvAccounts.Rows)
+                        {
+                            if (!row.IsNewRow)
+                            {
+                                DataRow dataRow = dt.NewRow();
+                                for (int i = 0; i < dgvAccounts.Columns.Count; i++)
+                                {
+                                    dataRow[i] = row.Cells[i].Value?.ToString();
+                                }
+                                dt.Rows.Add(dataRow);
+                            }
+                        }
+
+                        // Ghi vào Excel
+                        workbook.Worksheets.Add(dt, "HoaDonDien");
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
+                }
+            }
+        }
+
+        
     }
 }

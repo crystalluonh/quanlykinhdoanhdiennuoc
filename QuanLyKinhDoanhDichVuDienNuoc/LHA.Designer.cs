@@ -68,7 +68,7 @@
             this.btEmail.Name = "btEmail";
             this.btEmail.Size = new System.Drawing.Size(101, 54);
             this.btEmail.TabIndex = 4;
-            this.btEmail.Text = "Email";
+            this.btEmail.Text = "Feedback với admin";
             this.btEmail.UseVisualStyleBackColor = true;
             this.btEmail.Click += new System.EventHandler(this.btEmail_Click);
             // 

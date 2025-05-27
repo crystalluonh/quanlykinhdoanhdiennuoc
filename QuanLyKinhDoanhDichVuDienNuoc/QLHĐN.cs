@@ -398,5 +398,10 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 }
             }
         }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

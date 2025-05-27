@@ -60,6 +60,8 @@
             this.txtChiSoDien = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dtThoiGian = new System.Windows.Forms.DateTimePicker();
+            this.btnThemFile = new System.Windows.Forms.Button();
+            this.btnXuatFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccounts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -208,7 +210,7 @@
             // 
             this.txtMaHoaDon.Location = new System.Drawing.Point(137, 267);
             this.txtMaHoaDon.Name = "txtMaHoaDon";
-            this.txtMaHoaDon.Size = new System.Drawing.Size(434, 22);
+            this.txtMaHoaDon.Size = new System.Drawing.Size(517, 22);
             this.txtMaHoaDon.TabIndex = 27;
             // 
             // lblFullName
@@ -223,7 +225,7 @@
             // 
             this.txtTenKH.Location = new System.Drawing.Point(139, 340);
             this.txtTenKH.Name = "txtTenKH";
-            this.txtTenKH.Size = new System.Drawing.Size(432, 22);
+            this.txtTenKH.Size = new System.Drawing.Size(515, 22);
             this.txtTenKH.TabIndex = 29;
             // 
             // lblWard
@@ -272,14 +274,14 @@
             // 
             this.txtAddress.Location = new System.Drawing.Point(385, 381);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(186, 22);
+            this.txtAddress.Size = new System.Drawing.Size(269, 22);
             this.txtAddress.TabIndex = 37;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(13, 468);
+            this.btnAdd.Location = new System.Drawing.Point(10, 468);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(90, 30);
+            this.btnAdd.Size = new System.Drawing.Size(72, 31);
             this.btnAdd.TabIndex = 38;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -287,9 +289,9 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(137, 468);
+            this.btnEdit.Location = new System.Drawing.Point(123, 468);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(90, 30);
+            this.btnEdit.Size = new System.Drawing.Size(72, 31);
             this.btnEdit.TabIndex = 39;
             this.btnEdit.Text = "Sửa";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -297,9 +299,9 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(260, 468);
+            this.btnDelete.Location = new System.Drawing.Point(236, 468);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(90, 30);
+            this.btnDelete.Size = new System.Drawing.Size(72, 31);
             this.btnDelete.TabIndex = 40;
             this.btnDelete.Text = "Xoá";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -307,9 +309,9 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(380, 468);
+            this.btnReset.Location = new System.Drawing.Point(354, 468);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(90, 30);
+            this.btnReset.Size = new System.Drawing.Size(72, 31);
             this.btnReset.TabIndex = 41;
             this.btnReset.Text = "Làm mới";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -320,7 +322,7 @@
             this.cbLoaiDichVu.FormattingEnabled = true;
             this.cbLoaiDichVu.Location = new System.Drawing.Point(139, 305);
             this.cbLoaiDichVu.Name = "cbLoaiDichVu";
-            this.cbLoaiDichVu.Size = new System.Drawing.Size(432, 24);
+            this.cbLoaiDichVu.Size = new System.Drawing.Size(515, 24);
             this.cbLoaiDichVu.TabIndex = 43;
             // 
             // label2
@@ -353,12 +355,35 @@
             this.dtThoiGian.Location = new System.Drawing.Point(385, 418);
             this.dtThoiGian.Name = "dtThoiGian";
             this.dtThoiGian.ShowUpDown = true;
-            this.dtThoiGian.Size = new System.Drawing.Size(186, 22);
+            this.dtThoiGian.Size = new System.Drawing.Size(269, 22);
             this.dtThoiGian.TabIndex = 50;
+            // 
+            // btnThemFile
+            // 
+            this.btnThemFile.Location = new System.Drawing.Point(461, 468);
+            this.btnThemFile.Name = "btnThemFile";
+            this.btnThemFile.Size = new System.Drawing.Size(72, 31);
+            this.btnThemFile.TabIndex = 51;
+            this.btnThemFile.Text = "Thêm file";
+            this.btnThemFile.UseVisualStyleBackColor = true;
+            this.btnThemFile.Click += new System.EventHandler(this.btnThemFile_Click);
+            // 
+            // btnXuatFile
+            // 
+            this.btnXuatFile.Location = new System.Drawing.Point(571, 468);
+            this.btnXuatFile.Name = "btnXuatFile";
+            this.btnXuatFile.Size = new System.Drawing.Size(72, 31);
+            this.btnXuatFile.TabIndex = 52;
+            this.btnXuatFile.Text = "Xuất file";
+            this.btnXuatFile.UseVisualStyleBackColor = true;
+            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
             // 
             // QLHĐĐ
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Controls.Add(this.btnXuatFile);
+            this.Controls.Add(this.btnThemFile);
             this.Controls.Add(this.dtThoiGian);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtChiSoDien);
@@ -422,5 +447,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Button btnThemFile;
+        private System.Windows.Forms.Button btnXuatFile;
     }
 }

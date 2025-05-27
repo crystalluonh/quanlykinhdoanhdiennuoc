@@ -9,7 +9,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
+using ExcelDataReader;
+using ClosedXML.Excel;
 namespace QuanLyKinhDoanhDichVuDienNuoc
 {
     public partial class QLTK : UserControl
@@ -454,6 +456,128 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             }
         }
 
-     
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        var result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                        {
+                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                        });
+
+                        DataTable dataTable = result.Tables[0];
+
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            string username = row["Username"].ToString().Trim();
+                            string password = row["Password"].ToString().Trim();
+                            string fullName = row["FullName"].ToString().Trim();
+                            string email = row["Email"].ToString().Trim();
+                            string phone = row["Phone"].ToString().Trim();
+                            string address = row["Address"].ToString().Trim();
+                            string ward = row["Ward"].ToString().Trim();
+                            string role = "User";
+
+                            // Mã hóa password trước khi lưu
+                            string hashedPassword = maHoaMatKhau.HashPassword(password);
+
+                            using (SqlConnection conn = new SqlConnection(DB.connectionString))
+                            {
+                                string query = @"INSERT INTO Users (Username, Password, FullName, Email, Phone, Address, Ward, Role)
+                                         VALUES (@Username, @Password, @FullName, @Email, @Phone, @Address, @Ward, @Role)";
+                                using (SqlCommand cmd = new SqlCommand(query, conn))
+                                {
+                                    cmd.Parameters.AddWithValue("@Username", username);
+                                    cmd.Parameters.AddWithValue("@Password", hashedPassword);
+                                    cmd.Parameters.AddWithValue("@FullName", fullName);
+                                    cmd.Parameters.AddWithValue("@Email", email);
+                                    cmd.Parameters.AddWithValue("@Phone", phone);
+                                    cmd.Parameters.AddWithValue("@Address", address);
+                                    cmd.Parameters.AddWithValue("@Ward", ward);
+                                    cmd.Parameters.AddWithValue("@Role", role);
+
+                                    try
+                                    {
+                                        conn.Open();
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show($"Lỗi thêm user {username}: {ex.Message}");
+                                    }
+                                }
+                            }
+                        }
+
+                        MessageBox.Show("Import Excel thành công!");
+                        LoadAllData(); // Load lại bảng
+                    }
+                }
+            }
+        }
+
+        private void btnXuatFile_Click(object sender, EventArgs e)
+        {
+
+            if (dgvAccounts.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.");
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+            saveFileDialog.Title = "Lưu file Excel";
+            saveFileDialog.FileName = "DanhSachTaiKhoan.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (XLWorkbook workbook = new XLWorkbook())
+                    {
+                        DataTable dt = new DataTable();
+
+                        // Tạo cột từ DataGridView
+                        foreach (DataGridViewColumn col in dgvAccounts.Columns)
+                        {
+                            dt.Columns.Add(col.HeaderText);
+                        }
+
+                        // Thêm dữ liệu từ DataGridView vào DataTable
+                        foreach (DataGridViewRow row in dgvAccounts.Rows)
+                        {
+                            if (!row.IsNewRow)
+                            {
+                                DataRow dataRow = dt.NewRow();
+                                for (int i = 0; i < dgvAccounts.Columns.Count; i++)
+                                {
+                                    dataRow[i] = row.Cells[i].Value?.ToString();
+                                }
+                                dt.Rows.Add(dataRow);
+                            }
+                        }
+
+                        // Ghi vào Excel
+                        workbook.Worksheets.Add(dt, "TaiKhoan");
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
+                }
+            }
+        }
     }
 }

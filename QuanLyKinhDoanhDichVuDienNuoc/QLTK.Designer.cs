@@ -45,6 +45,8 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.btnReset = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.btnImportExcel = new System.Windows.Forms.Button();
+            this.btnXuatFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccounts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -155,7 +157,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             this.txtUsername.Location = new System.Drawing.Point(140, 262);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(434, 22);
+            this.txtUsername.Size = new System.Drawing.Size(510, 22);
             this.txtUsername.TabIndex = 5;
             // 
             // lblFullName
@@ -170,7 +172,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             this.txtFullName.Location = new System.Drawing.Point(142, 335);
             this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(432, 22);
+            this.txtFullName.Size = new System.Drawing.Size(508, 22);
             this.txtFullName.TabIndex = 7;
             this.txtFullName.TextChanged += new System.EventHandler(this.txtFullName_TextChanged);
             // 
@@ -186,7 +188,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             this.txtEmail.Location = new System.Drawing.Point(142, 364);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(432, 22);
+            this.txtEmail.Size = new System.Drawing.Size(508, 22);
             this.txtEmail.TabIndex = 9;
             // 
             // lblPhone
@@ -201,7 +203,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             this.txtPhone.Location = new System.Drawing.Point(142, 399);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(432, 22);
+            this.txtPhone.Size = new System.Drawing.Size(508, 22);
             this.txtPhone.TabIndex = 11;
             // 
             // lblWard
@@ -250,14 +252,14 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             this.txtAddress.Location = new System.Drawing.Point(401, 431);
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(173, 22);
+            this.txtAddress.Size = new System.Drawing.Size(249, 22);
             this.txtAddress.TabIndex = 15;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(18, 469);
+            this.btnAdd.Location = new System.Drawing.Point(13, 469);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(90, 30);
+            this.btnAdd.Size = new System.Drawing.Size(85, 26);
             this.btnAdd.TabIndex = 16;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -265,9 +267,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(142, 469);
+            this.btnEdit.Location = new System.Drawing.Point(115, 469);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(90, 30);
+            this.btnEdit.Size = new System.Drawing.Size(85, 26);
             this.btnEdit.TabIndex = 17;
             this.btnEdit.Text = "Sửa";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -275,9 +277,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(265, 469);
+            this.btnDelete.Location = new System.Drawing.Point(221, 469);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(90, 30);
+            this.btnDelete.Size = new System.Drawing.Size(85, 26);
             this.btnDelete.TabIndex = 18;
             this.btnDelete.Text = "Xoá";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -285,9 +287,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(385, 469);
+            this.btnReset.Location = new System.Drawing.Point(328, 469);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(90, 30);
+            this.btnReset.Size = new System.Drawing.Size(85, 26);
             this.btnReset.TabIndex = 19;
             this.btnReset.Text = "Làm mới";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -305,12 +307,34 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             // 
             this.txtPassword.Location = new System.Drawing.Point(140, 297);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(434, 22);
+            this.txtPassword.Size = new System.Drawing.Size(510, 22);
             this.txtPassword.TabIndex = 21;
+            // 
+            // btnImportExcel
+            // 
+            this.btnImportExcel.Location = new System.Drawing.Point(429, 469);
+            this.btnImportExcel.Name = "btnImportExcel";
+            this.btnImportExcel.Size = new System.Drawing.Size(85, 26);
+            this.btnImportExcel.TabIndex = 22;
+            this.btnImportExcel.Text = "Thêm file";
+            this.btnImportExcel.UseVisualStyleBackColor = true;
+            this.btnImportExcel.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnXuatFile
+            // 
+            this.btnXuatFile.Location = new System.Drawing.Point(537, 469);
+            this.btnXuatFile.Name = "btnXuatFile";
+            this.btnXuatFile.Size = new System.Drawing.Size(85, 26);
+            this.btnXuatFile.TabIndex = 23;
+            this.btnXuatFile.Text = "Xuất file";
+            this.btnXuatFile.UseVisualStyleBackColor = true;
+            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
             // 
             // QLTK
             // 
             this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Controls.Add(this.btnXuatFile);
+            this.Controls.Add(this.btnImportExcel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.lblSearch);
@@ -374,5 +398,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         private DataGridViewTextBoxColumn colPhone;
         private DataGridViewTextBoxColumn colWard;
         private DataGridViewTextBoxColumn colAddress;
+        private Button btnImportExcel;
+        private Button btnXuatFile;
     }
 }
