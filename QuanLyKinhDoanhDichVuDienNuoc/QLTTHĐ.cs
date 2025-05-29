@@ -14,10 +14,11 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
         private void QLTTHĐ_Load(object sender, EventArgs e)
         {
-            LoadAllData();
+            LoadDienData();
+            LoadNuocData();
         }
 
-        private void LoadAllData()
+        private void LoadNuocData()
         {
             using (SqlConnection conn = new SqlConnection(DB.connectionString))
             {
@@ -38,14 +39,32 @@ SELECT
         WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
         ELSE N'Chưa thanh toán'
     END AS TrangThaiThanhToan,
-    hd.NgayThanhToan,
-    N'Nước' AS LoaiHoaDon
+    hd.NgayThanhToan
 FROM HoaDonNuoc hd
 JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
-LEFT JOIN Users u ON hd.UserID = u.UserID
+LEFT JOIN Users u ON hd.UserID = u.UserID";
 
-UNION ALL
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
 
+                    dgvNuoc.AutoGenerateColumns = false;
+                    dgvNuoc.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi tải dữ liệu nước: " + ex.Message);
+                }
+            }
+        }
+
+        private void LoadDienData()
+        {
+            using (SqlConnection conn = new SqlConnection(DB.connectionString))
+            {
+                try
+                {
+                    string query = @"
 SELECT 
     hd.MaHoaDon, 
     dv.TenDichVu AS LoaiDichVu,
@@ -60,22 +79,21 @@ SELECT
         WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
         ELSE N'Chưa thanh toán'
     END AS TrangThaiThanhToan,
-    hd.NgayThanhToan,
-    N'Điện' AS LoaiHoaDon
+    hd.NgayThanhToan
 FROM HoaDonDien hd
 JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
-LEFT JOIN Users u ON hd.UserID = u.UserID;";
+LEFT JOIN Users u ON hd.UserID = u.UserID";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    dgvAccounts.AutoGenerateColumns = false;
-                    dgvAccounts.DataSource = dt;
+                    dgvDien.AutoGenerateColumns = false;
+                    dgvDien.DataSource = dt;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+                    MessageBox.Show("Lỗi khi tải dữ liệu điện: " + ex.Message);
                 }
             }
         }
@@ -84,17 +102,14 @@ LEFT JOIN Users u ON hd.UserID = u.UserID;";
         {
             string keyword = txtSearch.Text.Trim();
 
-            if (string.IsNullOrEmpty(keyword))
-            {
-                LoadAllData();
-                return;
-            }
-
             using (SqlConnection conn = new SqlConnection(DB.connectionString))
             {
                 try
                 {
-                    string query = @"
+                    conn.Open();
+
+                    // Truy vấn hóa đơn nước
+                    string queryNuoc = @"
 SELECT 
     hd.MaHoaDon, 
     dv.TenDichVu AS LoaiDichVu,
@@ -109,15 +124,38 @@ SELECT
         WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
         ELSE N'Chưa thanh toán'
     END AS TrangThaiThanhToan,
-    hd.NgayThanhToan,
-    N'Nước' AS LoaiHoaDon
+    hd.NgayThanhToan
 FROM HoaDonNuoc hd
 JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
-LEFT JOIN Users u ON hd.UserID = u.UserID
-WHERE hd.MaHoaDon LIKE @keyword OR u.Username LIKE @keyword
+LEFT JOIN Users u ON hd.UserID = u.UserID";
 
-UNION ALL
+                    // Thêm điều kiện tìm kiếm nếu có từ khóa
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        queryNuoc += @"
+ WHERE 
+    hd.MaHoaDon LIKE @keyword OR
+    u.Username LIKE @keyword OR
+    hd.TenKhachHang LIKE @keyword OR
+    hd.PhuongXa LIKE @keyword OR
+    hd.DiaChi LIKE @keyword OR
+    dv.TenDichVu LIKE @keyword OR
+    CONVERT(VARCHAR, hd.ThoiGian, 120) LIKE @keyword OR
+    CONVERT(VARCHAR, hd.NgayThanhToan, 120) LIKE @keyword";
+                    }
 
+                    SqlDataAdapter adapterNuoc = new SqlDataAdapter(queryNuoc, conn);
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        adapterNuoc.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
+                    }
+
+                    DataTable dtNuoc = new DataTable();
+                    adapterNuoc.Fill(dtNuoc);
+                    dgvNuoc.DataSource = dtNuoc;
+
+                    // Truy vấn hóa đơn điện
+                    string queryDien = @"
 SELECT 
     hd.MaHoaDon, 
     dv.TenDichVu AS LoaiDichVu,
@@ -132,20 +170,34 @@ SELECT
         WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
         ELSE N'Chưa thanh toán'
     END AS TrangThaiThanhToan,
-    hd.NgayThanhToan,
-    N'Điện' AS LoaiHoaDon
+    hd.NgayThanhToan
 FROM HoaDonDien hd
 JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
-LEFT JOIN Users u ON hd.UserID = u.UserID
-WHERE hd.MaHoaDon LIKE @keyword OR u.Username LIKE @keyword;";
+LEFT JOIN Users u ON hd.UserID = u.UserID";
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
-                    adapter.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        queryDien += @"
+ WHERE 
+    hd.MaHoaDon LIKE @keyword OR
+    u.Username LIKE @keyword OR
+    hd.TenKhachHang LIKE @keyword OR
+    hd.PhuongXa LIKE @keyword OR
+    hd.DiaChi LIKE @keyword OR
+    dv.TenDichVu LIKE @keyword OR
+    CONVERT(VARCHAR, hd.ThoiGian, 120) LIKE @keyword OR
+    CONVERT(VARCHAR, hd.NgayThanhToan, 120) LIKE @keyword";
+                    }
 
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
+                    SqlDataAdapter adapterDien = new SqlDataAdapter(queryDien, conn);
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        adapterDien.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
+                    }
 
-                    dgvAccounts.DataSource = dt;
+                    DataTable dtDien = new DataTable();
+                    adapterDien.Fill(dtDien);
+                    dgvDien.DataSource = dtDien;
                 }
                 catch (Exception ex)
                 {
@@ -154,9 +206,15 @@ WHERE hd.MaHoaDon LIKE @keyword OR u.Username LIKE @keyword;";
             }
         }
 
+
         private void dgvAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Xử lý khi click ô trong DataGridView nếu cần
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

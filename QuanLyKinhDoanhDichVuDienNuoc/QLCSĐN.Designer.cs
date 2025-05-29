@@ -435,7 +435,7 @@
             this.tpNuoc.TabIndex = 1;
             this.tpNuoc.Text = "Nước";
             // 
-            // btnLamMoiNuoc
+            // BtnLamMoiNuoc
             // 
             this.btnLamMoiNuoc.AutoSize = true;
             this.btnLamMoiNuoc.BackColor = System.Drawing.Color.MidnightBlue;

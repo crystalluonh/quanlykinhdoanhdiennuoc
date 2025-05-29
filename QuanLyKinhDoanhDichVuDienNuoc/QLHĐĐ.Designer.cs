@@ -55,13 +55,13 @@
             this.txtChiSoDien = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dtThoiGian = new System.Windows.Forms.DateTimePicker();
+            this.btnXuatFile = new RoundButton();
+            this.btnThemFile = new RoundButton();
             this.btnSearch = new RoundButton();
             this.btnAdd = new RoundButton();
             this.btnEdit = new RoundButton();
             this.btnDelete = new RoundButton();
             this.btnReset = new RoundButton();
-            this.btnThemFile = new RoundButton();
-            this.btnXuatFile = new RoundButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccounts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,7 +93,7 @@
             // 
             this.dgvAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvAccounts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAccounts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvAccounts.ColumnHeadersHeight = 65;
             this.dgvAccounts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colUsername,
@@ -308,6 +308,46 @@
             this.dtThoiGian.Size = new System.Drawing.Size(269, 22);
             this.dtThoiGian.TabIndex = 50;
             // 
+            // btnXuatFile
+            // 
+            this.btnXuatFile.AutoSize = true;
+            this.btnXuatFile.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnXuatFile.BorderColor = System.Drawing.Color.White;
+            this.btnXuatFile.BorderRadius = 30;
+            this.btnXuatFile.BorderThickness = 2;
+            this.btnXuatFile.FlatAppearance.BorderSize = 0;
+            this.btnXuatFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXuatFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnXuatFile.ForeColor = System.Drawing.Color.White;
+            this.btnXuatFile.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnXuatFile.Location = new System.Drawing.Point(559, 468);
+            this.btnXuatFile.Name = "btnXuatFile";
+            this.btnXuatFile.Size = new System.Drawing.Size(95, 35);
+            this.btnXuatFile.TabIndex = 52;
+            this.btnXuatFile.Text = "Xuất file";
+            this.btnXuatFile.UseVisualStyleBackColor = false;
+            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
+            // 
+            // btnThemFile
+            // 
+            this.btnThemFile.AutoSize = true;
+            this.btnThemFile.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnThemFile.BorderColor = System.Drawing.Color.White;
+            this.btnThemFile.BorderRadius = 30;
+            this.btnThemFile.BorderThickness = 2;
+            this.btnThemFile.FlatAppearance.BorderSize = 0;
+            this.btnThemFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThemFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnThemFile.ForeColor = System.Drawing.Color.White;
+            this.btnThemFile.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnThemFile.Location = new System.Drawing.Point(438, 468);
+            this.btnThemFile.Name = "btnThemFile";
+            this.btnThemFile.Size = new System.Drawing.Size(103, 35);
+            this.btnThemFile.TabIndex = 51;
+            this.btnThemFile.Text = "Thêm file";
+            this.btnThemFile.UseVisualStyleBackColor = false;
+            this.btnThemFile.Click += new System.EventHandler(this.btnThemFile_Click);
+            // 
             // btnSearch
             // 
             this.btnSearch.AutoSize = true;
@@ -407,46 +447,6 @@
             this.btnReset.Text = "Làm mới";
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // btnThemFile
-            // 
-            this.btnThemFile.AutoSize = true;
-            this.btnThemFile.BackColor = System.Drawing.Color.MidnightBlue;
-            this.btnThemFile.BorderColor = System.Drawing.Color.White;
-            this.btnThemFile.BorderRadius = 30;
-            this.btnThemFile.BorderThickness = 2;
-            this.btnThemFile.FlatAppearance.BorderSize = 0;
-            this.btnThemFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThemFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnThemFile.ForeColor = System.Drawing.Color.White;
-            this.btnThemFile.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
-            this.btnThemFile.Location = new System.Drawing.Point(438, 468);
-            this.btnThemFile.Name = "btnThemFile";
-            this.btnThemFile.Size = new System.Drawing.Size(103, 35);
-            this.btnThemFile.TabIndex = 51;
-            this.btnThemFile.Text = "Thêm file";
-            this.btnThemFile.UseVisualStyleBackColor = false;
-            this.btnThemFile.Click += new System.EventHandler(this.btnThemFile_Click);
-            // 
-            // btnXuatFile
-            // 
-            this.btnXuatFile.AutoSize = true;
-            this.btnXuatFile.BackColor = System.Drawing.Color.MidnightBlue;
-            this.btnXuatFile.BorderColor = System.Drawing.Color.White;
-            this.btnXuatFile.BorderRadius = 30;
-            this.btnXuatFile.BorderThickness = 2;
-            this.btnXuatFile.FlatAppearance.BorderSize = 0;
-            this.btnXuatFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXuatFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnXuatFile.ForeColor = System.Drawing.Color.White;
-            this.btnXuatFile.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
-            this.btnXuatFile.Location = new System.Drawing.Point(559, 468);
-            this.btnXuatFile.Name = "btnXuatFile";
-            this.btnXuatFile.Size = new System.Drawing.Size(95, 35);
-            this.btnXuatFile.TabIndex = 52;
-            this.btnXuatFile.Text = "Xuất file";
-            this.btnXuatFile.UseVisualStyleBackColor = false;
-            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
             // 
             // QLHĐĐ
             // 
