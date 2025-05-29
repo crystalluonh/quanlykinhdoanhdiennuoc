@@ -30,7 +30,7 @@ SELECT
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
-    hd.TenKhachHang,
+    'KH' + CAST(u.UserID AS VARCHAR) AS MaKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
     hd.ChiSoNuoc AS ChiSo, 
@@ -70,7 +70,7 @@ SELECT
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
-    hd.TenKhachHang,
+    'KH' + CAST(u.UserID AS VARCHAR) AS MaKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
     hd.ChiSoDien AS ChiSo, 
@@ -115,7 +115,7 @@ SELECT
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
-    hd.TenKhachHang,
+    'KH' + CAST(u.UserID AS VARCHAR) AS TenKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
     hd.ChiSoNuoc AS ChiSo, 
@@ -129,14 +129,13 @@ FROM HoaDonNuoc hd
 JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
 LEFT JOIN Users u ON hd.UserID = u.UserID";
 
-                    // Thêm điều kiện tìm kiếm nếu có từ khóa
                     if (!string.IsNullOrEmpty(keyword))
                     {
                         queryNuoc += @"
  WHERE 
     hd.MaHoaDon LIKE @keyword OR
     u.Username LIKE @keyword OR
-    hd.TenKhachHang LIKE @keyword OR
+    ('KH' + CAST(u.UserID AS VARCHAR)) LIKE @keyword OR
     hd.PhuongXa LIKE @keyword OR
     hd.DiaChi LIKE @keyword OR
     dv.TenDichVu LIKE @keyword OR
@@ -161,7 +160,7 @@ SELECT
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
-    hd.TenKhachHang,
+    'KH' + CAST(u.UserID AS VARCHAR) AS TenKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
     hd.ChiSoDien AS ChiSo, 
@@ -181,7 +180,7 @@ LEFT JOIN Users u ON hd.UserID = u.UserID";
  WHERE 
     hd.MaHoaDon LIKE @keyword OR
     u.Username LIKE @keyword OR
-    hd.TenKhachHang LIKE @keyword OR
+    ('KH' + CAST(u.UserID AS VARCHAR)) LIKE @keyword OR
     hd.PhuongXa LIKE @keyword OR
     hd.DiaChi LIKE @keyword OR
     dv.TenDichVu LIKE @keyword OR
@@ -206,7 +205,6 @@ LEFT JOIN Users u ON hd.UserID = u.UserID";
             }
         }
 
-
         private void dgvAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Xử lý khi click ô trong DataGridView nếu cần
@@ -214,7 +212,7 @@ LEFT JOIN Users u ON hd.UserID = u.UserID";
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
-
+            // Sự kiện click tab nếu cần
         }
     }
 }
