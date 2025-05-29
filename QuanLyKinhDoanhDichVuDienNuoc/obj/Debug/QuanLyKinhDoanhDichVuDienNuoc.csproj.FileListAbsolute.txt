@@ -95,3 +95,13 @@ D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bi
 D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
 D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\System.Security.Cryptography.Xml.xml
 D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\obj\Debug\QuanLyKinhDoanhDichVuDienNuoc.ChatForm.resources
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\obj\Debug\QuanLyKinhDoanhDichVuDienNuoc.exe.config
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\runtimes\win-x86\native\WebView2Loader.dll
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\runtimes\win-arm64\native\WebView2Loader.dll
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\Microsoft.Web.WebView2.Core.dll
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\Microsoft.Web.WebView2.WinForms.dll
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\Microsoft.Web.WebView2.Wpf.dll
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\Microsoft.Web.WebView2.Core.xml
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
+D:\QuanLyDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\QuanLyKinhDoanhDichVuDienNuoc\bin\Debug\Microsoft.Web.WebView2.Wpf.xml

@@ -36,7 +36,7 @@ CREATE TABLE DichVuNuoc (
 CREATE TABLE HoaDonDien (
     MaHoaDon NVARCHAR(20) PRIMARY KEY,
     MaDV VARCHAR(10) NOT NULL,
-    ThoiGian NVARCHAR(7) NOT NULL, -- định dạng MM/yyyy
+    ThoiGian NVARCHAR(50) NOT NULL, -- định dạng MM/yyyy
     TenKhachHang NVARCHAR(100) NOT NULL,
     PhuongXa NVARCHAR(100) NOT NULL,
     DiaChi NVARCHAR(200) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE HoaDonDien (
 CREATE TABLE HoaDonNuoc (
     MaHoaDon NVARCHAR(20) PRIMARY KEY,
     MaDV VARCHAR(10) NOT NULL,
-    ThoiGian NVARCHAR(7) NOT NULL, -- định dạng MM/yyyy
+    ThoiGian NVARCHAR(50) NOT NULL, -- định dạng MM/yyyy
     TenKhachHang NVARCHAR(100) NOT NULL,
     PhuongXa NVARCHAR(100) NOT NULL,
     DiaChi NVARCHAR(200) NOT NULL,

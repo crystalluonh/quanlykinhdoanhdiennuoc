@@ -273,7 +273,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            ResetForm();
+              ResetForm();
             LoadAllData();
             txtMaHoaDon.Text = TaoMaHoaDonMoi();
         }
@@ -428,51 +428,68 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
                         foreach (DataRow row in dataTable.Rows)
                         {
-                            string maHoaDon = row["MaHoaDon"].ToString().Trim();
-                            string loaiDichVu = row["LoaiDichVu"].ToString().Trim();
-                            string thoiGianStr = row["ThoiGian"].ToString().Trim();
-                            string tenKH = row["TenKhachHang"].ToString().Trim();
-                            string phuongXa = row["PhuongXa"].ToString().Trim();
-                            string diaChi = row["DiaChi"].ToString().Trim();
-                            if (!int.TryParse(row["ChiSoDien"].ToString().Trim(), out int chiSoDien) || chiSoDien <= 0)
-                                throw new Exception("Chỉ số điện không hợp lệ");
-                            if (!decimal.TryParse(row["TongTien"].ToString().Trim(), out decimal tongTien) || tongTien < 0)
-                                throw new Exception("Tổng tiền không hợp lệ");
-                            // Mã hóa password trước khi lưu
-
-                            using (SqlConnection conn = new SqlConnection(DB.connectionString))
+                            try
                             {
-                                string queryInsert = @"
-                                     INSERT INTO HoaDonDien (MaHoaDon, MaDV, ThoiGian, TenKhachHang,
-                                                             PhuongXa, DiaChi, ChiSoDien, TongTien, UserId)
-                                     VALUES (@MaHoaDon, @MaDV, @ThoiGian, @TenKhachHang,
-                                             @PhuongXa, @DiaChi, @ChiSoDien, @TongTien, @UserId)";
-                                using (SqlCommand cmdInsert = new SqlCommand(queryInsert, conn))
+                                string maHoaDon = row["MaHoaDon"].ToString().Trim();
+                                string loaiDichVu = row["LoaiDichVu"].ToString().Trim();
+                                string thoiGianStr = row["ThoiGian"].ToString().Trim();
+                                string tenKH = row["TenKhachHang"].ToString().Trim();
+                                string phuongXa = row["PhuongXa"].ToString().Trim();
+                                string diaChi = row["DiaChi"].ToString().Trim();
+
+                                if (!int.TryParse(row["ChiSoDien"].ToString().Trim(), out int chiSoDien) || chiSoDien <= 0)
+                                    throw new Exception("Chỉ số điện không hợp lệ");
+                                if (!decimal.TryParse(row["TongTien"].ToString().Trim(), out decimal tongTien) || tongTien < 0)
+                                    throw new Exception("Tổng tiền không hợp lệ");
+
+                                using (SqlConnection conn = new SqlConnection(DB.connectionString))
                                 {
-                                    cmdInsert.Parameters.AddWithValue("@MaHoaDon", maHoaDon);
-                                    cmdInsert.Parameters.AddWithValue("@LoaiDichVu", loaiDichVu);
-                                    cmdInsert.Parameters.AddWithValue("@ThoiGian", thoiGianStr);
-                                    cmdInsert.Parameters.AddWithValue("@TenKhachHang", tenKH);
-                                    cmdInsert.Parameters.AddWithValue("@PhuongXa", phuongXa);
-                                    cmdInsert.Parameters.AddWithValue("@DiaChi", diaChi);
-                                    cmdInsert.Parameters.AddWithValue("@ChiSoDien", chiSoDien);
-                                    cmdInsert.Parameters.AddWithValue("@TongTien", tongTien);
-                                    cmdInsert.Parameters.AddWithValue("@UserId", DBNull.Value);
-                                    try
+                                    conn.Open();
+
+                                    // Lấy MaDV từ LoaiDichVu
+                                    string maDV = "";
+                                    string queryGetMaDV = "SELECT MaDV FROM DichVuDien WHERE TenDichVu = @LoaiDichVu";
+                                    using (SqlCommand cmdGetMaDV = new SqlCommand(queryGetMaDV, conn))
                                     {
-                                        conn.Open();
-                                        cmdInsert.ExecuteNonQuery();
+                                        cmdGetMaDV.Parameters.AddWithValue("@LoaiDichVu", loaiDichVu);
+                                        object resultMaDV = cmdGetMaDV.ExecuteScalar();
+                                        if (resultMaDV == null)
+                                        {
+                                            MessageBox.Show($"Không tìm thấy Mã DV cho loại dịch vụ: {loaiDichVu}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            continue;
+                                        }
+                                        maDV = resultMaDV.ToString();
                                     }
-                                    catch (Exception ex)
+
+                                    string queryInsert = @"
+                                INSERT INTO HoaDonDien (MaHoaDon, MaDV, ThoiGian, TenKhachHang,
+                                                        PhuongXa, DiaChi, ChiSoDien, TongTien, UserId)
+                                VALUES (@MaHoaDon, @MaDV, @ThoiGian, @TenKhachHang,
+                                        @PhuongXa, @DiaChi, @ChiSoDien, @TongTien, @UserId)";
+                                    using (SqlCommand cmdInsert = new SqlCommand(queryInsert, conn))
                                     {
-                                        MessageBox.Show("Lỗi khi xóa hóa đơn: " + ex.Message);
+                                        cmdInsert.Parameters.AddWithValue("@MaHoaDon", maHoaDon);
+                                        cmdInsert.Parameters.AddWithValue("@MaDV", maDV);
+                                        cmdInsert.Parameters.AddWithValue("@ThoiGian", thoiGianStr);
+                                        cmdInsert.Parameters.AddWithValue("@TenKhachHang", tenKH);
+                                        cmdInsert.Parameters.AddWithValue("@PhuongXa", phuongXa);
+                                        cmdInsert.Parameters.AddWithValue("@DiaChi", diaChi);
+                                        cmdInsert.Parameters.AddWithValue("@ChiSoDien", chiSoDien);
+                                        cmdInsert.Parameters.AddWithValue("@TongTien", tongTien);
+                                        cmdInsert.Parameters.AddWithValue("@UserId", DBNull.Value); // Có thể thay bằng UserId thực nếu có
+
+                                        cmdInsert.ExecuteNonQuery();
                                     }
                                 }
                             }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Lỗi khi import hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
 
-                        MessageBox.Show("Import Excel thành công!");
-                        LoadAllData(); // Load lại bảng
+                        MessageBox.Show("Import Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadAllData(); // Load lại dữ liệu
                     }
                 }
             }

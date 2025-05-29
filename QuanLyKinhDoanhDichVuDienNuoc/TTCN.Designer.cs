@@ -1,4 +1,6 @@
-﻿namespace QuanLyKinhDoanhDichVuDienNuoc
+﻿using System.Windows.Forms;
+
+namespace QuanLyKinhDoanhDichVuDienNuoc
 {
     partial class TTCN
     {
@@ -33,7 +35,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtWard = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.bt_luu = new System.Windows.Forms.Button();
+            this.bt_luu = new RoundButton();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -115,14 +117,20 @@
             // 
             // bt_luu
             // 
-            this.bt_luu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.bt_luu.Location = new System.Drawing.Point(454, 473);
-            this.bt_luu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.bt_luu.AutoSize = true;
+            this.bt_luu.BackColor = System.Drawing.Color.MidnightBlue;
+            this.bt_luu.BorderRadius = 25;
+            this.bt_luu.FlatAppearance.BorderSize = 0;
+            this.bt_luu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bt_luu.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.bt_luu.ForeColor = System.Drawing.Color.White;
+            this.bt_luu.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.bt_luu.Location = new System.Drawing.Point(470, 478);
             this.bt_luu.Name = "bt_luu";
             this.bt_luu.Size = new System.Drawing.Size(121, 39);
-            this.bt_luu.TabIndex = 13;
+            this.bt_luu.TabIndex = 17;
             this.bt_luu.Text = "Lưu";
-            this.bt_luu.UseVisualStyleBackColor = true;
+            this.bt_luu.UseVisualStyleBackColor = false;
             this.bt_luu.Click += new System.EventHandler(this.bt_luu_Click);
             // 
             // txtAddress
@@ -260,8 +268,8 @@
         private System.Windows.Forms.TextBox txtFullName;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.Button bt_luu;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox txtWard;
+        private RoundButton bt_luu;
     }
 }

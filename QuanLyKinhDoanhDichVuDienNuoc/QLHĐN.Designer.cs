@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.dgvAccounts = new System.Windows.Forms.DataGridView();
             this.colUsername = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LoaiDichVu = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,15 +50,18 @@
             this.txtWard = new System.Windows.Forms.ComboBox();
             this.lblStreet = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
             this.cbLoaiDichVu = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtChiSoNuoc = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dtThoiGian = new System.Windows.Forms.DateTimePicker();
+            this.btnSearch = new RoundButton();
+            this.btnAdd = new RoundButton();
+            this.btnEdit = new RoundButton();
+            this.btnDelete = new RoundButton();
+            this.btnReset = new RoundButton();
+            this.btnThemFile = new RoundButton();
+            this.btnXuatFile = new RoundButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAccounts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,17 +88,6 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(300, 22);
             this.txtSearch.TabIndex = 23;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(461, 12);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(77, 33);
-            this.btnSearch.TabIndex = 24;
-            this.btnSearch.Text = "Tìm Kiếm";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // dgvAccounts
             // 
@@ -142,9 +133,9 @@
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column1.DataPropertyName = "ThoiGian";
-            dataGridViewCellStyle3.Format = "M";
-            dataGridViewCellStyle3.NullValue = null;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Format = "M";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column1.HeaderText = "Thời gian";
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
@@ -190,8 +181,8 @@
             // 
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Column3.DataPropertyName = "TongTien";
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Red;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Red;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
             this.Column3.HeaderText = "Tổng tiền";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
@@ -276,45 +267,6 @@
             this.txtAddress.Size = new System.Drawing.Size(269, 22);
             this.txtAddress.TabIndex = 37;
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(13, 468);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(90, 30);
-            this.btnAdd.TabIndex = 38;
-            this.btnAdd.Text = "Thêm";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Location = new System.Drawing.Point(137, 468);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(90, 30);
-            this.btnEdit.TabIndex = 39;
-            this.btnEdit.Text = "Sửa";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(260, 468);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(90, 30);
-            this.btnDelete.TabIndex = 40;
-            this.btnDelete.Text = "Xoá";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.Location = new System.Drawing.Point(380, 468);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(90, 30);
-            this.btnReset.TabIndex = 41;
-            this.btnReset.Text = "Làm mới";
-            this.btnReset.UseVisualStyleBackColor = true;
-            // 
             // cbLoaiDichVu
             // 
             this.cbLoaiDichVu.FormattingEnabled = true;
@@ -356,10 +308,152 @@
             this.dtThoiGian.Size = new System.Drawing.Size(269, 22);
             this.dtThoiGian.TabIndex = 50;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.AutoSize = true;
+            this.btnSearch.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnSearch.BorderColor = System.Drawing.Color.White;
+            this.btnSearch.BorderRadius = 30;
+            this.btnSearch.BorderThickness = 2;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
+            this.btnSearch.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnSearch.Location = new System.Drawing.Point(461, 12);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(104, 35);
+            this.btnSearch.TabIndex = 24;
+            this.btnSearch.Text = "Tìm Kiếm";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.AutoSize = true;
+            this.btnAdd.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnAdd.BorderColor = System.Drawing.Color.White;
+            this.btnAdd.BorderRadius = 30;
+            this.btnAdd.BorderThickness = 2;
+            this.btnAdd.FlatAppearance.BorderSize = 0;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnAdd.ForeColor = System.Drawing.Color.White;
+            this.btnAdd.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnAdd.Location = new System.Drawing.Point(13, 468);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(85, 35);
+            this.btnAdd.TabIndex = 38;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.AutoSize = true;
+            this.btnEdit.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnEdit.BorderColor = System.Drawing.Color.White;
+            this.btnEdit.BorderRadius = 30;
+            this.btnEdit.BorderThickness = 2;
+            this.btnEdit.FlatAppearance.BorderSize = 0;
+            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnEdit.ForeColor = System.Drawing.Color.White;
+            this.btnEdit.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnEdit.Location = new System.Drawing.Point(112, 468);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(85, 35);
+            this.btnEdit.TabIndex = 39;
+            this.btnEdit.Text = "Sửa";
+            this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.AutoSize = true;
+            this.btnDelete.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnDelete.BorderColor = System.Drawing.Color.White;
+            this.btnDelete.BorderRadius = 30;
+            this.btnDelete.BorderThickness = 2;
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnDelete.ForeColor = System.Drawing.Color.White;
+            this.btnDelete.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnDelete.Location = new System.Drawing.Point(220, 468);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(85, 35);
+            this.btnDelete.TabIndex = 40;
+            this.btnDelete.Text = "Xoá";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.AutoSize = true;
+            this.btnReset.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnReset.BorderColor = System.Drawing.Color.White;
+            this.btnReset.BorderRadius = 30;
+            this.btnReset.BorderThickness = 2;
+            this.btnReset.FlatAppearance.BorderSize = 0;
+            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnReset.ForeColor = System.Drawing.Color.White;
+            this.btnReset.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnReset.Location = new System.Drawing.Point(330, 468);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(98, 35);
+            this.btnReset.TabIndex = 41;
+            this.btnReset.Text = "Làm mới";
+            this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnThemFile
+            // 
+            this.btnThemFile.AutoSize = true;
+            this.btnThemFile.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnThemFile.BorderColor = System.Drawing.Color.White;
+            this.btnThemFile.BorderRadius = 30;
+            this.btnThemFile.BorderThickness = 2;
+            this.btnThemFile.FlatAppearance.BorderSize = 0;
+            this.btnThemFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThemFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnThemFile.ForeColor = System.Drawing.Color.White;
+            this.btnThemFile.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnThemFile.Location = new System.Drawing.Point(443, 468);
+            this.btnThemFile.Name = "btnThemFile";
+            this.btnThemFile.Size = new System.Drawing.Size(103, 35);
+            this.btnThemFile.TabIndex = 51;
+            this.btnThemFile.Text = "Thêm file";
+            this.btnThemFile.UseVisualStyleBackColor = false;
+            this.btnThemFile.Click += new System.EventHandler(this.btnThemFile_Click);
+            // 
+            // btnXuatFile
+            // 
+            this.btnXuatFile.AutoSize = true;
+            this.btnXuatFile.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnXuatFile.BorderColor = System.Drawing.Color.White;
+            this.btnXuatFile.BorderRadius = 30;
+            this.btnXuatFile.BorderThickness = 2;
+            this.btnXuatFile.FlatAppearance.BorderSize = 0;
+            this.btnXuatFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXuatFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnXuatFile.ForeColor = System.Drawing.Color.White;
+            this.btnXuatFile.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnXuatFile.Location = new System.Drawing.Point(559, 468);
+            this.btnXuatFile.Name = "btnXuatFile";
+            this.btnXuatFile.Size = new System.Drawing.Size(95, 35);
+            this.btnXuatFile.TabIndex = 52;
+            this.btnXuatFile.Text = "Xuất file";
+            this.btnXuatFile.UseVisualStyleBackColor = false;
+            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
+            // 
             // QLHĐN
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Controls.Add(this.btnXuatFile);
+            this.Controls.Add(this.btnThemFile);
             this.Controls.Add(this.dtThoiGian);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtChiSoNuoc);
@@ -396,7 +490,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dgvAccounts;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.TextBox txtMaHoaDon;
@@ -406,10 +499,6 @@
         private System.Windows.Forms.ComboBox txtWard;
         private System.Windows.Forms.Label lblStreet;
         private System.Windows.Forms.TextBox txtAddress;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.ComboBox cbLoaiDichVu;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtChiSoNuoc;
@@ -423,6 +512,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private RoundButton btnSearch;
+        private RoundButton btnAdd;
+        private RoundButton btnEdit;
+        private RoundButton btnDelete;
+        private RoundButton btnReset;
+        private RoundButton btnThemFile;
+        private RoundButton btnXuatFile;
     }
 }
 

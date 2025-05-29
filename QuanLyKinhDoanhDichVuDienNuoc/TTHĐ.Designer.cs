@@ -30,7 +30,7 @@
         {
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtMaHoaDon = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnSearch = new RoundButton();
             this.SuspendLayout();
             // 
             // lblSearch
@@ -53,13 +53,22 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnSearch.Location = new System.Drawing.Point(686, 263);
+            this.btnSearch.AutoSize = true;
+            this.btnSearch.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnSearch.BorderColor = System.Drawing.Color.White;
+            this.btnSearch.BorderRadius = 30;
+            this.btnSearch.BorderThickness = 2;
+            this.btnSearch.FlatAppearance.BorderSize = 0;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
+            this.btnSearch.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnSearch.Location = new System.Drawing.Point(699, 265);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(113, 42);
-            this.btnSearch.TabIndex = 5;
-            this.btnSearch.Text = "Tìm Kiếm";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Size = new System.Drawing.Size(103, 35);
+            this.btnSearch.TabIndex = 52;
+            this.btnSearch.Text = "Tìm kiếm";
+            this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // TTHĐ
@@ -82,6 +91,6 @@
 
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.TextBox txtMaHoaDon;
-        private System.Windows.Forms.Button btnSearch;
+        private RoundButton btnSearch;
     }
 }

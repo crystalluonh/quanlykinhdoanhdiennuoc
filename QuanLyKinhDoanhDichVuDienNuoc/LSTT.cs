@@ -92,5 +92,85 @@ ORDER BY NgayThanhToan DESC";
                 MessageBox.Show("Lỗi tải lịch sử thanh toán: " + ex.Message);
             }
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim();
+
+            if (string.IsNullOrEmpty(keyword))
+            {
+                LoadLichSuThanhToan(); // Nếu rỗng thì load lại toàn bộ
+                return;
+            }
+
+            string connectionString = DB.connectionString;
+            int currentUserID = GetCurrentUserID();
+
+            string query = @"
+SELECT 
+    hd.MaHoaDon, 
+    dv.TenDichVu AS LoaiDichVu,
+    hd.ThoiGian,
+    hd.TenKhachHang,  
+    hd.TongTien,
+    CASE 
+        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
+        ELSE N'Chưa thanh toán'
+    END AS TrangThaiThanhToan,
+    hd.NgayThanhToan
+FROM HoaDonNuoc hd
+JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
+WHERE hd.TrangThaiThanhToan = 1 
+AND hd.UserID = @UserID
+AND (hd.MaHoaDon LIKE @keyword OR hd.TenKhachHang LIKE @keyword)
+
+UNION ALL
+
+SELECT 
+    hd.MaHoaDon, 
+    dv.TenDichVu AS LoaiDichVu,
+    hd.ThoiGian,
+    hd.TenKhachHang, 
+    hd.TongTien,
+    CASE 
+        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
+        ELSE N'Chưa thanh toán'
+    END AS TrangThaiThanhToan,
+    hd.NgayThanhToan
+FROM HoaDonDien hd
+JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
+WHERE hd.TrangThaiThanhToan = 1 
+AND hd.UserID = @UserID
+AND (hd.MaHoaDon LIKE @keyword OR hd.TenKhachHang LIKE @keyword)
+
+ORDER BY NgayThanhToan DESC";
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = currentUserID;
+                        cmd.Parameters.Add("@keyword", SqlDbType.NVarChar).Value = "%" + keyword + "%";
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+
+                dgvAccounts.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message);
+            }
+        }
     }
 }

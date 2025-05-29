@@ -76,5 +76,10 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             //    }
             //}
         }
+
+        private void bt_lienhe_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

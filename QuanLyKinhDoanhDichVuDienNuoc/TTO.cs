@@ -122,23 +122,34 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(maHoaDon))
+                {
+                    MessageBox.Show("Mã hóa đơn không hợp lệ!");
+                    return false;
+                }
+
+                if (userID <= 0)
+                {
+                    MessageBox.Show("User ID không hợp lệ!");
+                    return false;
+                }
+
                 using (SqlConnection conn = new SqlConnection(DB.connectionString))
                 {
                     conn.Open();
 
                     string queryDien = @"
-    UPDATE HoaDonDien 
-    SET TrangThaiThanhToan = 1, NgayThanhToan = @ngayThanhToan, UserID = @userID
-    WHERE MaHoaDon = @maHoaDon AND (UserID IS NULL OR UserID = 0)";
+                UPDATE HoaDonDien 
+                SET TrangThaiThanhToan = 1, NgayThanhToan = @ngayThanhToan, UserID = @userID
+                WHERE MaHoaDon = @maHoaDon AND (UserID IS NULL OR UserID = 0)";
 
                     string queryNuoc = @"
-    UPDATE HoaDonNuoc 
-    SET TrangThaiThanhToan = 1, NgayThanhToan = @ngayThanhToan, UserID = @userID
-    WHERE MaHoaDon = @maHoaDon AND (UserID IS NULL OR UserID = 0)";
+                UPDATE HoaDonNuoc 
+                SET TrangThaiThanhToan = 1, NgayThanhToan = @ngayThanhToan, UserID = @userID
+                WHERE MaHoaDon = @maHoaDon AND (UserID IS NULL OR UserID = 0)";
 
                     DateTime now = DateTime.Now;
 
-                    // Cập nhật bảng Hóa Đơn Điện
                     using (SqlCommand cmd = new SqlCommand(queryDien, conn))
                     {
                         cmd.Parameters.AddWithValue("@ngayThanhToan", now);
@@ -146,11 +157,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                         cmd.Parameters.AddWithValue("@userID", userID);
 
                         int rows = cmd.ExecuteNonQuery();
-
                         if (rows > 0) return true;
                     }
 
-                    // Cập nhật bảng Hóa Đơn Nước
                     using (SqlCommand cmd = new SqlCommand(queryNuoc, conn))
                     {
                         cmd.Parameters.AddWithValue("@ngayThanhToan", now);
@@ -158,16 +167,15 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                         cmd.Parameters.AddWithValue("@userID", userID);
 
                         int rows = cmd.ExecuteNonQuery();
-
                         if (rows > 0) return true;
                     }
 
-                    MessageBox.Show("Không tìm thấy mã hóa đơn trong cả hai bảng!");
+                    MessageBox.Show("Không tìm thấy mã hóa đơn trong hệ thống!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi cập nhật thanh toán: " + ex.Message);
+                MessageBox.Show("Lỗi cập nhật thanh toán: " + ex.Message);
             }
 
             return false;

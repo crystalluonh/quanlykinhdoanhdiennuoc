@@ -36,9 +36,6 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.lblLoaiDV = new System.Windows.Forms.Label();
             this.lblTenKH = new System.Windows.Forms.Label();
             this.lblMaHD = new System.Windows.Forms.Label();
-            this.btnThanhToanOnline = new System.Windows.Forms.Button();
-            this.btnXuatFile = new System.Windows.Forms.Button();
-            this.btnQuayLai = new System.Windows.Forms.Button();
             this.lblPhuong = new System.Windows.Forms.Label();
             this.lblDiaChi = new System.Windows.Forms.Label();
             this.lblTrangThai = new System.Windows.Forms.Label();
@@ -53,6 +50,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.lblThoiGian1 = new System.Windows.Forms.Label();
             this.lblTenKH1 = new System.Windows.Forms.Label();
             this.lblMaHD1 = new System.Windows.Forms.Label();
+            this.btnThanhToanOnline = new RoundButton();
+            this.btnXuatFile = new RoundButton();
+            this.btnQuayLai = new RoundButton();
             this.SuspendLayout();
             // 
             // lblTongTien
@@ -127,42 +127,6 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.lblMaHD.Size = new System.Drawing.Size(139, 25);
             this.lblMaHD.TabIndex = 6;
             this.lblMaHD.Text = "Mã hóa đơn: ";
-            // 
-            // btnThanhToanOnline
-            // 
-            this.btnThanhToanOnline.AutoSize = true;
-            this.btnThanhToanOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnThanhToanOnline.Location = new System.Drawing.Point(151, 574);
-            this.btnThanhToanOnline.Name = "btnThanhToanOnline";
-            this.btnThanhToanOnline.Size = new System.Drawing.Size(179, 43);
-            this.btnThanhToanOnline.TabIndex = 12;
-            this.btnThanhToanOnline.Text = "Thanh toán online";
-            this.btnThanhToanOnline.UseVisualStyleBackColor = true;
-            this.btnThanhToanOnline.Click += new System.EventHandler(this.btnThanhToanOnline_Click);
-            // 
-            // btnXuatFile
-            // 
-            this.btnXuatFile.AutoSize = true;
-            this.btnXuatFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnXuatFile.Location = new System.Drawing.Point(386, 574);
-            this.btnXuatFile.Name = "btnXuatFile";
-            this.btnXuatFile.Size = new System.Drawing.Size(110, 43);
-            this.btnXuatFile.TabIndex = 13;
-            this.btnXuatFile.Text = "Xuất file";
-            this.btnXuatFile.UseVisualStyleBackColor = true;
-            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
-            // 
-            // btnQuayLai
-            // 
-            this.btnQuayLai.AutoSize = true;
-            this.btnQuayLai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.btnQuayLai.Location = new System.Drawing.Point(530, 574);
-            this.btnQuayLai.Name = "btnQuayLai";
-            this.btnQuayLai.Size = new System.Drawing.Size(110, 43);
-            this.btnQuayLai.TabIndex = 14;
-            this.btnQuayLai.Text = "Quay lại";
-            this.btnQuayLai.UseVisualStyleBackColor = true;
-            this.btnQuayLai.Click += new System.EventHandler(this.btnQuayLai_Click);
             // 
             // lblPhuong
             // 
@@ -333,6 +297,66 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.lblMaHD1.TabIndex = 19;
             this.lblMaHD1.Text = "Mã hóa đơn: ";
             // 
+            // btnThanhToanOnline
+            // 
+            this.btnThanhToanOnline.AutoSize = true;
+            this.btnThanhToanOnline.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnThanhToanOnline.BorderColor = System.Drawing.Color.White;
+            this.btnThanhToanOnline.BorderRadius = 30;
+            this.btnThanhToanOnline.BorderThickness = 2;
+            this.btnThanhToanOnline.FlatAppearance.BorderSize = 0;
+            this.btnThanhToanOnline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThanhToanOnline.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnThanhToanOnline.ForeColor = System.Drawing.Color.White;
+            this.btnThanhToanOnline.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnThanhToanOnline.Location = new System.Drawing.Point(137, 571);
+            this.btnThanhToanOnline.Name = "btnThanhToanOnline";
+            this.btnThanhToanOnline.Size = new System.Drawing.Size(184, 44);
+            this.btnThanhToanOnline.TabIndex = 52;
+            this.btnThanhToanOnline.Text = "Thanh toán online";
+            this.btnThanhToanOnline.UseVisualStyleBackColor = false;
+            this.btnThanhToanOnline.Click += new System.EventHandler(this.btnThanhToanOnline_Click);
+            // 
+            // btnXuatFile
+            // 
+            this.btnXuatFile.AutoSize = true;
+            this.btnXuatFile.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnXuatFile.BorderColor = System.Drawing.Color.White;
+            this.btnXuatFile.BorderRadius = 30;
+            this.btnXuatFile.BorderThickness = 2;
+            this.btnXuatFile.FlatAppearance.BorderSize = 0;
+            this.btnXuatFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXuatFile.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnXuatFile.ForeColor = System.Drawing.Color.White;
+            this.btnXuatFile.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnXuatFile.Location = new System.Drawing.Point(391, 571);
+            this.btnXuatFile.Name = "btnXuatFile";
+            this.btnXuatFile.Size = new System.Drawing.Size(95, 44);
+            this.btnXuatFile.TabIndex = 52;
+            this.btnXuatFile.Text = "Xuất file";
+            this.btnXuatFile.UseVisualStyleBackColor = false;
+            this.btnXuatFile.Click += new System.EventHandler(this.btnXuatFile_Click);
+            // 
+            // btnQuayLai
+            // 
+            this.btnQuayLai.AutoSize = true;
+            this.btnQuayLai.BackColor = System.Drawing.Color.MidnightBlue;
+            this.btnQuayLai.BorderColor = System.Drawing.Color.White;
+            this.btnQuayLai.BorderRadius = 30;
+            this.btnQuayLai.BorderThickness = 2;
+            this.btnQuayLai.FlatAppearance.BorderSize = 0;
+            this.btnQuayLai.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQuayLai.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.btnQuayLai.ForeColor = System.Drawing.Color.White;
+            this.btnQuayLai.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(85)))), ((int)(((byte)(174)))));
+            this.btnQuayLai.Location = new System.Drawing.Point(578, 571);
+            this.btnQuayLai.Name = "btnQuayLai";
+            this.btnQuayLai.Size = new System.Drawing.Size(95, 44);
+            this.btnQuayLai.TabIndex = 53;
+            this.btnQuayLai.Text = "Quay lại";
+            this.btnQuayLai.UseVisualStyleBackColor = false;
+            this.btnQuayLai.Click += new System.EventHandler(this.btnQuayLai_Click);
+            // 
             // HĐ
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -341,6 +365,7 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(242)))));
             this.BackgroundImage = global::QuanLyKinhDoanhDichVuDienNuoc.Properties.Resources.bgDien;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.btnQuayLai);
             this.Controls.Add(this.lblNgayThanhToan1);
             this.Controls.Add(this.lblTrangThai1);
             this.Controls.Add(this.lblLoaiDV1);
@@ -358,7 +383,6 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             this.Controls.Add(this.lblTongTien);
             this.Controls.Add(this.lblPhuong);
             this.Controls.Add(this.lblChiSo);
-            this.Controls.Add(this.btnQuayLai);
             this.Controls.Add(this.lblThoiGian);
             this.Controls.Add(this.btnXuatFile);
             this.Controls.Add(this.lblTenKH);
@@ -380,9 +404,6 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         private System.Windows.Forms.Label lblLoaiDV;
         private System.Windows.Forms.Label lblTenKH;
         private System.Windows.Forms.Label lblMaHD;
-        private System.Windows.Forms.Button btnThanhToanOnline;
-        private System.Windows.Forms.Button btnXuatFile;
-        private System.Windows.Forms.Button btnQuayLai;
         private System.Windows.Forms.Label lblPhuong;
         private System.Windows.Forms.Label lblDiaChi;
         private System.Windows.Forms.Label lblTrangThai;
@@ -397,5 +418,8 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
         private System.Windows.Forms.Label lblThoiGian1;
         private System.Windows.Forms.Label lblTenKH1;
         private System.Windows.Forms.Label lblMaHD1;
+        private RoundButton btnThanhToanOnline;
+        private RoundButton btnXuatFile;
+        private RoundButton btnQuayLai;
     }
 }

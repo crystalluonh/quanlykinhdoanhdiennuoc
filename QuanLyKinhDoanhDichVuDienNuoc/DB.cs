@@ -9,5 +9,10 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
     internal class DB
     {
         public static string connectionString = "Server=localhost;Database=QuanLyKinhDoanhDichVuDienNuoc;Trusted_Connection=True;";
+
+        internal void ExecuteQuery(string query, Dictionary<string, object> parameters)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

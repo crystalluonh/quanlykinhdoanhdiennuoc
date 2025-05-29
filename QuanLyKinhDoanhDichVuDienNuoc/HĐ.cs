@@ -61,17 +61,12 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             TTO tTO = new TTO();
             tTO.CurrentUserID = frmLogin.UserSession.CurrentUserID;  // Lấy từ session
             frmMain.LoadUserControl(tTO);
+            frmMain.LoadUserControl(tTO);
             string maHD = lblMaHD1.Text.Replace("Mã hóa đơn:", "").Trim();
             tTO.MaHoaDon = maHD;
         }
 
-        private void btnQuayLai_Click(object sender, EventArgs e)
-        {
-            userMain frmMain = (userMain)this.FindForm();
-            TTHĐ tt = new TTHĐ();
-            frmMain.LoadUserControl(tt);
-        }
-
+       
         private void btnXuatFile_Click(object sender, EventArgs e)
         {
             // Mở hộp thoại lưu file
@@ -112,5 +107,11 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             }
         }
 
+        private void btnQuayLai_Click(object sender, EventArgs e)
+        {
+            userMain frmMain = (userMain)this.FindForm();
+            TTHĐ tt = new TTHĐ();
+            frmMain.LoadUserControl(tt);
+        }
     }
 }

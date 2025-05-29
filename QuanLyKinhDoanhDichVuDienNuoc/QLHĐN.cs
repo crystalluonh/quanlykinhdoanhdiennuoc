@@ -1,14 +1,16 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using ExcelDataReader;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace QuanLyKinhDoanhDichVuDienNuoc
 {
     public partial class QLHĐN : UserControl
@@ -399,9 +401,161 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             }
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void btnThemFile_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        var result = reader.AsDataSet(new ExcelDataSetConfiguration()
+                        {
+                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                        });
+
+                        DataTable dataTable = result.Tables[0];
+
+                        foreach (DataRow row in dataTable.Rows)
+                        {
+                            try
+                            {
+                                string maHoaDon = row["MaHoaDon"].ToString().Trim();
+                                string loaiDichVu = row["LoaiDichVu"].ToString().Trim();
+                                string thoiGianStr = row["ThoiGian"].ToString().Trim();
+                                string tenKH = row["TenKhachHang"].ToString().Trim();
+                                string phuongXa = row["PhuongXa"].ToString().Trim();
+                                string diaChi = row["DiaChi"].ToString().Trim();
+
+                                if (!int.TryParse(row["ChiSoNuoc"].ToString().Trim(), out int chiSoNuoc) || chiSoNuoc <= 0)
+                                    throw new Exception("Chỉ số nước không hợp lệ");
+                                if (!decimal.TryParse(row["TongTien"].ToString().Trim(), out decimal tongTien) || tongTien < 0)
+                                    throw new Exception("Tổng tiền không hợp lệ");
+
+                                using (SqlConnection conn = new SqlConnection(DB.connectionString))
+                                {
+                                    conn.Open();
+
+                                    // Lấy MaDV từ LoaiDichVu
+                                    string maDV = "";
+                                    string queryGetMaDV = "SELECT MaDV FROM DichVuNuoc WHERE TenDichVu = @LoaiDichVu";
+                                    using (SqlCommand cmdGetMaDV = new SqlCommand(queryGetMaDV, conn))
+                                    {
+                                        cmdGetMaDV.Parameters.AddWithValue("@LoaiDichVu", loaiDichVu);
+                                        object resultMaDV = cmdGetMaDV.ExecuteScalar();
+                                        if (resultMaDV == null)
+                                        {
+                                            MessageBox.Show($"Không tìm thấy Mã DV cho loại dịch vụ: {loaiDichVu}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            continue;
+                                        }
+                                        maDV = resultMaDV.ToString();
+                                    }
+
+                                    string queryInsert = @"
+                            INSERT INTO HoaDonNuoc (MaHoaDon, MaDV, ThoiGian, TenKhachHang,
+                                                    PhuongXa, DiaChi, ChiSoNuoc, TongTien, UserId)
+                            VALUES (@MaHoaDon, @MaDV, @ThoiGian, @TenKhachHang,
+                                    @PhuongXa, @DiaChi, @ChiSoNuoc, @TongTien, @UserId)";
+                                    using (SqlCommand cmdInsert = new SqlCommand(queryInsert, conn))
+                                    {
+                                        cmdInsert.Parameters.AddWithValue("@MaHoaDon", maHoaDon);
+                                        cmdInsert.Parameters.AddWithValue("@MaDV", maDV);
+                                        cmdInsert.Parameters.AddWithValue("@ThoiGian", thoiGianStr);
+                                        cmdInsert.Parameters.AddWithValue("@TenKhachHang", tenKH);
+                                        cmdInsert.Parameters.AddWithValue("@PhuongXa", phuongXa);
+                                        cmdInsert.Parameters.AddWithValue("@DiaChi", diaChi);
+                                        cmdInsert.Parameters.AddWithValue("@ChiSoNuoc", chiSoNuoc);
+                                        cmdInsert.Parameters.AddWithValue("@TongTien", tongTien);
+                                        cmdInsert.Parameters.AddWithValue("@UserId", DBNull.Value); // Cập nhật nếu có userId
+
+                                        cmdInsert.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Lỗi khi import hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                        MessageBox.Show("Import Excel thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadAllData(); // Hàm reload lại dữ liệu dgv
+                    }
+                }
+            }
+        }
+
+        private void btnXuatFile_Click(object sender, EventArgs e)
+        {
+            if (dgvAccounts.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.");
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+            saveFileDialog.Title = "Lưu file Excel";
+            saveFileDialog.FileName = "HoaDonNuoc.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (XLWorkbook workbook = new XLWorkbook())
+                    {
+                        DataTable dt = new DataTable();
+
+                        // Tạo cột từ DataGridView
+                        foreach (DataGridViewColumn col in dgvAccounts.Columns)
+                        {
+                            dt.Columns.Add(col.HeaderText);
+                        }
+
+                        // Thêm dữ liệu từ DataGridView vào DataTable
+                        foreach (DataGridViewRow row in dgvAccounts.Rows)
+                        {
+                            if (!row.IsNewRow)
+                            {
+                                DataRow dataRow = dt.NewRow();
+                                for (int i = 0; i < dgvAccounts.Columns.Count; i++)
+                                {
+                                    dataRow[i] = row.Cells[i].Value?.ToString();
+                                }
+                                dt.Rows.Add(dataRow);
+                            }
+                        }
+
+                        // Ghi vào Excel
+                        workbook.Worksheets.Add(dt, "HoaDonNuoc");
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
+                }
+            }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            txtMaHoaDon.Text = GenerateNewMaHoaDon();
+            txtTenKH.Text = "";
+            txtWard.Text = "";
+            txtAddress.Text = "";
+            txtChiSoNuoc.Text = "";
+            cbLoaiDichVu.SelectedIndex = -1;
+            dtThoiGian.Value = DateTime.Now;
+
+            txtMaHoaDon.Enabled = false;
+            dgvAccounts.ClearSelection();
         }
     }
 }

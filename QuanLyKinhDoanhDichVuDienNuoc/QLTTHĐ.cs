@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyKinhDoanhDichVuDienNuoc
@@ -30,43 +24,47 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 try
                 {
                     string query = @"
-                SELECT 
-                    hd.MaHoaDon, 
-                    dv.TenDichVu AS LoaiDichVu,
-                    hd.ThoiGian,
-                    hd.TenKhachHang, 
-                    hd.PhuongXa, 
-                    hd.DiaChi, 
-                    hd.ChiSoNuoc AS ChiSo, 
-                    hd.TongTien,
-                    CASE 
-                        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
-                        ELSE N'Chưa thanh toán'
-                    END AS TrangThaiThanhToan,
-                    hd.NgayThanhToan,
-                    N'Nước' AS LoaiHoaDon
-                FROM HoaDonNuoc hd
-                JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
+SELECT 
+    hd.MaHoaDon, 
+    dv.TenDichVu AS LoaiDichVu,
+    hd.ThoiGian,
+    u.Username AS TenTaiKhoan,
+    hd.TenKhachHang,
+    hd.PhuongXa, 
+    hd.DiaChi, 
+    hd.ChiSoNuoc AS ChiSo, 
+    hd.TongTien,
+    CASE 
+        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
+        ELSE N'Chưa thanh toán'
+    END AS TrangThaiThanhToan,
+    hd.NgayThanhToan,
+    N'Nước' AS LoaiHoaDon
+FROM HoaDonNuoc hd
+JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
+LEFT JOIN Users u ON hd.UserID = u.UserID
 
-                UNION ALL
+UNION ALL
 
-                SELECT 
-                    hd.MaHoaDon, 
-                    dv.TenDichVu AS LoaiDichVu,
-                    hd.ThoiGian,
-                    hd.TenKhachHang, 
-                    hd.PhuongXa, 
-                    hd.DiaChi, 
-                    hd.ChiSoDien AS ChiSo, 
-                    hd.TongTien,
-                    CASE 
-                        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
-                        ELSE N'Chưa thanh toán'
-                    END AS TrangThaiThanhToan,
-                    hd.NgayThanhToan,
-                    N'Điện' AS LoaiHoaDon
-                FROM HoaDonDien hd
-                JOIN DichVuDien dv ON hd.MaDV = dv.MaDV";
+SELECT 
+    hd.MaHoaDon, 
+    dv.TenDichVu AS LoaiDichVu,
+    hd.ThoiGian,
+    u.Username AS TenTaiKhoan,
+    hd.TenKhachHang,
+    hd.PhuongXa, 
+    hd.DiaChi, 
+    hd.ChiSoDien AS ChiSo, 
+    hd.TongTien,
+    CASE 
+        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
+        ELSE N'Chưa thanh toán'
+    END AS TrangThaiThanhToan,
+    hd.NgayThanhToan,
+    N'Điện' AS LoaiHoaDon
+FROM HoaDonDien hd
+JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
+LEFT JOIN Users u ON hd.UserID = u.UserID;";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
@@ -88,7 +86,6 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
 
             if (string.IsNullOrEmpty(keyword))
             {
-                // Nếu không nhập gì, load lại tất cả dữ liệu
                 LoadAllData();
                 return;
             }
@@ -98,46 +95,49 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
                 try
                 {
                     string query = @"
-                SELECT 
-                    hd.MaHoaDon, 
-                    dv.TenDichVu AS LoaiDichVu,
-                    hd.ThoiGian,
-                    hd.TenKhachHang, 
-                    hd.PhuongXa, 
-                    hd.DiaChi, 
-                    hd.ChiSoNuoc AS ChiSo, 
-                    hd.TongTien,
-                    CASE 
-                        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
-                        ELSE N'Chưa thanh toán'
-                    END AS TrangThaiThanhToan,
-                    hd.NgayThanhToan,
-                    N'Nước' AS LoaiHoaDon
-                FROM HoaDonNuoc hd
-                JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
-                WHERE hd.MaHoaDon LIKE @keyword OR hd.TenKhachHang LIKE @keyword
+SELECT 
+    hd.MaHoaDon, 
+    dv.TenDichVu AS LoaiDichVu,
+    hd.ThoiGian,
+    u.Username AS TenTaiKhoan,
+    hd.TenKhachHang,
+    hd.PhuongXa, 
+    hd.DiaChi, 
+    hd.ChiSoNuoc AS ChiSo, 
+    hd.TongTien,
+    CASE 
+        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
+        ELSE N'Chưa thanh toán'
+    END AS TrangThaiThanhToan,
+    hd.NgayThanhToan,
+    N'Nước' AS LoaiHoaDon
+FROM HoaDonNuoc hd
+JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
+LEFT JOIN Users u ON hd.UserID = u.UserID
+WHERE hd.MaHoaDon LIKE @keyword OR u.Username LIKE @keyword
 
-                UNION ALL
+UNION ALL
 
-                SELECT 
-                    hd.MaHoaDon, 
-                    dv.TenDichVu AS LoaiDichVu,
-                    hd.ThoiGian,
-                    hd.TenKhachHang, 
-                    hd.PhuongXa, 
-                    hd.DiaChi, 
-                    hd.ChiSoDien AS ChiSo, 
-                    hd.TongTien,
-                    CASE 
-                        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
-                        ELSE N'Chưa thanh toán'
-                    END AS TrangThaiThanhToan,
-                    hd.NgayThanhToan,
-                    N'Điện' AS LoaiHoaDon
-                FROM HoaDonDien hd
-                JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
-                WHERE hd.MaHoaDon LIKE @keyword OR hd.TenKhachHang LIKE @keyword
-            ";
+SELECT 
+    hd.MaHoaDon, 
+    dv.TenDichVu AS LoaiDichVu,
+    hd.ThoiGian,
+    u.Username AS TenTaiKhoan,
+    hd.TenKhachHang,
+    hd.PhuongXa, 
+    hd.DiaChi, 
+    hd.ChiSoDien AS ChiSo, 
+    hd.TongTien,
+    CASE 
+        WHEN hd.TrangThaiThanhToan = 1 THEN N'Đã thanh toán'
+        ELSE N'Chưa thanh toán'
+    END AS TrangThaiThanhToan,
+    hd.NgayThanhToan,
+    N'Điện' AS LoaiHoaDon
+FROM HoaDonDien hd
+JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
+LEFT JOIN Users u ON hd.UserID = u.UserID
+WHERE hd.MaHoaDon LIKE @keyword OR u.Username LIKE @keyword;";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     adapter.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
@@ -154,6 +154,9 @@ namespace QuanLyKinhDoanhDichVuDienNuoc
             }
         }
 
-       
+        private void dgvAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Xử lý khi click ô trong DataGridView nếu cần
+        }
     }
 }
