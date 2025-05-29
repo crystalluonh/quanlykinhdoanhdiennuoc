@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -30,6 +31,7 @@ SELECT
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
+    u.FullName AS TenKhachHang,
     'KH' + CAST(u.UserID AS VARCHAR) AS MaKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
@@ -42,7 +44,7 @@ SELECT
     hd.NgayThanhToan
 FROM HoaDonNuoc hd
 JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
-LEFT JOIN Users u ON hd.UserID = u.UserID";
+LEFT JOIN Users u ON hd.UserID = u.UserID;";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
@@ -70,6 +72,7 @@ SELECT
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
+    u.FullName AS TenKhachHang,
     'KH' + CAST(u.UserID AS VARCHAR) AS MaKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
@@ -82,7 +85,7 @@ SELECT
     hd.NgayThanhToan
 FROM HoaDonDien hd
 JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
-LEFT JOIN Users u ON hd.UserID = u.UserID";
+LEFT JOIN Users u ON hd.UserID = u.UserID;";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
@@ -108,14 +111,26 @@ LEFT JOIN Users u ON hd.UserID = u.UserID";
                 {
                     conn.Open();
 
-                    // Truy vấn hóa đơn nước
+                    string baseCondition = @"
+ WHERE 
+    hd.MaHoaDon LIKE @keyword OR
+    u.Username LIKE @keyword OR
+    ('KH' + CAST(u.UserID AS VARCHAR)) LIKE @keyword OR
+    hd.PhuongXa LIKE @keyword OR
+    hd.DiaChi LIKE @keyword OR
+    dv.TenDichVu LIKE @keyword OR
+    CONVERT(VARCHAR, hd.ThoiGian, 120) LIKE @keyword OR
+    CONVERT(VARCHAR, hd.NgayThanhToan, 120) LIKE @keyword";
+
+                    // --- Nước ---
                     string queryNuoc = @"
 SELECT 
     hd.MaHoaDon, 
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
-    'KH' + CAST(u.UserID AS VARCHAR) AS TenKhachHang,
+    u.FullName AS TenKhachHang,
+    'KH' + CAST(u.UserID AS VARCHAR) AS MaKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
     hd.ChiSoNuoc AS ChiSo, 
@@ -130,37 +145,25 @@ JOIN DichVuNuoc dv ON hd.MaDV = dv.MaDV
 LEFT JOIN Users u ON hd.UserID = u.UserID";
 
                     if (!string.IsNullOrEmpty(keyword))
-                    {
-                        queryNuoc += @"
- WHERE 
-    hd.MaHoaDon LIKE @keyword OR
-    u.Username LIKE @keyword OR
-    ('KH' + CAST(u.UserID AS VARCHAR)) LIKE @keyword OR
-    hd.PhuongXa LIKE @keyword OR
-    hd.DiaChi LIKE @keyword OR
-    dv.TenDichVu LIKE @keyword OR
-    CONVERT(VARCHAR, hd.ThoiGian, 120) LIKE @keyword OR
-    CONVERT(VARCHAR, hd.NgayThanhToan, 120) LIKE @keyword";
-                    }
+                        queryNuoc += baseCondition;
 
                     SqlDataAdapter adapterNuoc = new SqlDataAdapter(queryNuoc, conn);
                     if (!string.IsNullOrEmpty(keyword))
-                    {
                         adapterNuoc.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
-                    }
 
                     DataTable dtNuoc = new DataTable();
                     adapterNuoc.Fill(dtNuoc);
                     dgvNuoc.DataSource = dtNuoc;
 
-                    // Truy vấn hóa đơn điện
+                    // --- Điện ---
                     string queryDien = @"
 SELECT 
     hd.MaHoaDon, 
     dv.TenDichVu AS LoaiDichVu,
     hd.ThoiGian,
     u.Username AS TenTaiKhoan,
-    'KH' + CAST(u.UserID AS VARCHAR) AS TenKhachHang,
+    u.FullName AS TenKhachHang,
+    'KH' + CAST(u.UserID AS VARCHAR) AS MaKhachHang,
     hd.PhuongXa, 
     hd.DiaChi, 
     hd.ChiSoDien AS ChiSo, 
@@ -175,24 +178,11 @@ JOIN DichVuDien dv ON hd.MaDV = dv.MaDV
 LEFT JOIN Users u ON hd.UserID = u.UserID";
 
                     if (!string.IsNullOrEmpty(keyword))
-                    {
-                        queryDien += @"
- WHERE 
-    hd.MaHoaDon LIKE @keyword OR
-    u.Username LIKE @keyword OR
-    ('KH' + CAST(u.UserID AS VARCHAR)) LIKE @keyword OR
-    hd.PhuongXa LIKE @keyword OR
-    hd.DiaChi LIKE @keyword OR
-    dv.TenDichVu LIKE @keyword OR
-    CONVERT(VARCHAR, hd.ThoiGian, 120) LIKE @keyword OR
-    CONVERT(VARCHAR, hd.NgayThanhToan, 120) LIKE @keyword";
-                    }
+                        queryDien += baseCondition;
 
                     SqlDataAdapter adapterDien = new SqlDataAdapter(queryDien, conn);
                     if (!string.IsNullOrEmpty(keyword))
-                    {
                         adapterDien.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
-                    }
 
                     DataTable dtDien = new DataTable();
                     adapterDien.Fill(dtDien);
@@ -207,12 +197,12 @@ LEFT JOIN Users u ON hd.UserID = u.UserID";
 
         private void dgvAccounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Xử lý khi click ô trong DataGridView nếu cần
+            // Nếu cần xử lý cell click
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
-            // Sự kiện click tab nếu cần
+            // Nếu cần xử lý tab click
         }
     }
 }

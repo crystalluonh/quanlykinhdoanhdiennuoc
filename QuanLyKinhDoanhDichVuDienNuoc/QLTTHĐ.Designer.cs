@@ -41,12 +41,14 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaHoaDon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ladad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.thoigian = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaKhachHang = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenKhachHang123 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TongTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabDien.SuspendLayout();
@@ -122,6 +124,7 @@
             this.ladad,
             this.thoigian,
             this.MaKhachHang,
+            this.TenKhachHang123,
             this.TongTien,
             this.TrangThai});
             this.dgvDien.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -153,6 +156,7 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.UserID,
+            this.Column5,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
             this.dgvNuoc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -262,6 +266,13 @@
             this.UserID.MinimumWidth = 6;
             this.UserID.Name = "UserID";
             // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "TenKhachHang";
+            this.Column5.HeaderText = "Tên Khách Hàng";
+            this.Column5.MinimumWidth = 6;
+            this.Column5.Name = "Column5";
+            // 
             // dataGridViewTextBoxColumn5
             // 
             this.dataGridViewTextBoxColumn5.DataPropertyName = "TongTien";
@@ -306,6 +317,13 @@
             this.MaKhachHang.HeaderText = "Mã Khách Hàng";
             this.MaKhachHang.MinimumWidth = 6;
             this.MaKhachHang.Name = "MaKhachHang";
+            // 
+            // TenKhachHang123
+            // 
+            this.TenKhachHang123.DataPropertyName = "TenKhachHang";
+            this.TenKhachHang123.HeaderText = "Tên Khách Hàng";
+            this.TenKhachHang123.MinimumWidth = 6;
+            this.TenKhachHang123.Name = "TenKhachHang123";
             // 
             // TongTien
             // 
@@ -363,12 +381,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaHoaDon;
         private System.Windows.Forms.DataGridViewTextBoxColumn ladad;
         private System.Windows.Forms.DataGridViewTextBoxColumn thoigian;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaKhachHang;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TenKhachHang123;
         private System.Windows.Forms.DataGridViewTextBoxColumn TongTien;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrangThai;
     }
